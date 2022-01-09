@@ -10,6 +10,7 @@ const MONGO_URI = process.env.MONGO_URI;
 // routes
 const users = require('./routes/users');
 const auth = require('./routes/auth');
+const posts = require('./routes/post');
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
     console.log('Connected to MongoDB');
@@ -23,7 +24,7 @@ app.use(morgan('common'));
 // routes middelware
 app.use('/api/users', users);
 app.use('/api/auth', auth);
-
+app.use('/api/posts', posts);
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');
