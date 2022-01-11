@@ -17,7 +17,7 @@ right now it support <br>
 <ul>
 <li>Nodejs(backend)</li>
 <li>Mongodb(database)</li>
-<li>Postman(to test the get and post command i.e. my application)</li>
+<li>Postman(to test the get and post request i.e. my application)</li>
 </ul>
 
 <br>
