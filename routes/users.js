@@ -25,8 +25,8 @@ router.delete('/delete/:id',varifyToken, async (req, res) => {
 router.put('/follow/:id',varifyToken, async (req, res) => {
     try{
         const user = await User.findById(req.params.id);
-        if(!user || req.user._id === req.params.id){
-            return res.status(404).send('you can not follow yourself or wrong credentials');
+        if(!user || req.user._id === req.params.id || user.follower.includes(req.user._id)){
+            return res.status(404).send('you can not follow yourself or wrong credentials or already followed');
         }
         user.follower.push(req.user._id);
         await user.save();
@@ -43,7 +43,7 @@ router.put('/follow/:id',varifyToken, async (req, res) => {
 router.put('/unfollow/:id',varifyToken,async (req,res)=>{
     try{
         const user = await User.findById(req.params.id);
-        if(!user || req.user._id === req.params.id){
+        if(!user || req.user._id === req.params.id || !user.follower.includes(req.user._id)){
             return res.status(404).send('you can not unfollow yourself or wrong credentials');
         }
         const index = user.follower.indexOf(req.user._id);

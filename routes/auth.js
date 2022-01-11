@@ -5,7 +5,7 @@ const JWT_TOKEN = process.env.JWT_TOKEN;
 const varifyToken = require('../middleware/auth');
 
 /**
- * @route POST api/users/register
+ * @route POST api/auth/register
  */
 router.post('/register', async (req, res) => {
     const user = await new User(req.body);
@@ -26,7 +26,7 @@ router.post('/register', async (req, res) => {
 });
 
 /**
- * @route POST api/users/login
+ * @route POST api/auth/login
  */
 router.post('/login', async (req, res) => {
     const user = await User.findOne({ username: req.body.username, password: req.body.password });
