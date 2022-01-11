@@ -21,6 +21,23 @@ right now it support <br>
 </ul>
 
 <br>
-<b> How to start with </b>
+<b> How to start with </b><br>
 clone the repository <br>
-navigate to desire folder<br>
+navigate to root folder<br>
+run `npm install` <br>
+create a `.env` file on root directory<br>
+inside `.env` file insert <br>
+<pre>
+MONGO_URI: "mongodb uri connection or localhost connection"
+JWT_TOKEN: "anything i.e. "sjdsn" "
+</pre>
+now run `node index` <br>
+open <a href="https://www.postman.com/"> postman </a> <br>
+make a post request with <b>http://localhost:3000/api/auth/register</b> <br>
+<b>DATA</b><br>
+<pre>
+"username": "your desired username"
+"email": "email"
+"password":"password"
+</pre>
+press enter
