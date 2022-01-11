@@ -11,6 +11,7 @@ const MONGO_URI = process.env.MONGO_URI;
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const posts = require('./routes/post');
+const groups = require('./routes/group');
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
     console.log('Connected to MongoDB');
@@ -25,6 +26,7 @@ app.use(morgan('common'));
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/posts', posts);
+app.use('/api/groups', groups);
 
 app.listen(3000, () => {
     console.log('Server started on port 3000');

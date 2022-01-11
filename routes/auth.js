@@ -16,9 +16,9 @@ router.post('/register', async (req, res) => {
         if(userExist){
             return res.status(400).send('User already exist');
         }
-        await user.save();
         const token = jwt.sign({ _id: user._id }, JWT_TOKEN);
         user.token = token;
+        await user.save();
         res.status(201).json(user);
     }catch(err){
         res.status(400).send(err);
@@ -36,6 +36,7 @@ router.post('/login', async (req, res) => {
         }
         const token = jwt.sign({ _id: user._id }, JWT_TOKEN);
         user.token = token;
+        await user.save();
         res.status(200).json(user);
     }catch(err){
         res.status(400).send(err);
