@@ -14,14 +14,14 @@ router.post('/register', async (req, res) => {
         // if user already exist then error
         const userExist = await User.findOne({email: req.body.email});
         if(userExist){
-            return res.status(400).send('User already exist');
+            return res.status(400).json({error:'User already exist'});
         }
         const token = jwt.sign({ _id: user._id }, JWT_TOKEN);
         user.token = token;
         await user.save();
-        res.status(201).json(user);
+        res.status(201).json({message:"User created successfully", token: token});
     }catch(err){
-        res.status(400).send(err);
+        res.status(400).json(err);
     }
 });
 
@@ -32,14 +32,14 @@ router.post('/login', async (req, res) => {
     const user = await User.findOne({ username: req.body.username, password: req.body.password });
     try{
         if(!user){
-            return res.status(404).send('User not found');
+            return res.status(404).send({error:'User not found'});
         }
         const token = jwt.sign({ _id: user._id }, JWT_TOKEN);
         user.token = token;
         await user.save();
-        res.status(200).json(user);
+        res.status(200).json({message:"login successfully",user: user, token: token});
     }catch(err){
-        res.status(400).send(err);
+        res.status(400).json({error: err});
     }
 });
 
@@ -51,9 +51,9 @@ router.post('/logout', varifyToken, async (req, res) => {
     try{
         user.token = '';
         await user.save();
-        res.status(200).send('Logout success');
+        res.status(200).json({message:'Logout success'});
     }catch(err){
-        res.status(400).send(err);
+        res.status(400).json({error:err});
     }
 });
 

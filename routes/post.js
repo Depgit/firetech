@@ -16,9 +16,9 @@ router.post('/creatememe', varifyToken, async (req, res) => {
     });
     try{
         await post.save();
-        res.status(201).json(post);
+        res.status(201).json({post:post});
     }catch(err){
-        res.status(400).send(err);
+        res.status(400).json({error:err});
     }
 });
 
@@ -28,7 +28,7 @@ router.post('/creatememe', varifyToken, async (req, res) => {
 router.put('/comment/:id', varifyToken, async (req, res) => {
     const post = await Post.findById(req.params.id);
     if(!post){
-        return res.status(404).send('Post not found or deleted');
+        return res.status(404).json({error:'Post not found or deleted'});
     }
     const newComment = {
         text: req.body.text,
@@ -37,9 +37,9 @@ router.put('/comment/:id', varifyToken, async (req, res) => {
     try{
         post.comments.push(newComment);
         await post.save();
-        res.status(201).json(post);
+        res.status(201).json({post:post});
     }catch(err){
-        res.status(400).send(err);
+        res.status(400).json({error:err});
     }
 });
 
@@ -49,19 +49,19 @@ router.put('/comment/:id', varifyToken, async (req, res) => {
 router.delete('/deletecomment/:userId&:postId', varifyToken, async (req, res) => {
     const post = await Post.findById(req.params.postId);
     if(!post){
-        return res.status(404).send('Post not found or deleted');
+        return res.status(404).json({error:'Post not found or deleted'});
     }
     const comment = post.comments.find(comment => comment.commentedBy === req.params.userId);
     if(!comment){
-        return res.status(404).send('Comment not found or deleted');
+        return res.status(404).json({error:'Comment not found or deleted'});
     }
     try{
         const index = post.comments.indexOf(comment);
         post.comments.splice(index,1);
         await post.save();
-        res.status(200).json(post);
+        res.status(200).json({post:post});
     }catch(err){
-        res.status(400).send(err);
+        res.status(400).json({error:err});
     }
 });
 

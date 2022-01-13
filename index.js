@@ -28,6 +28,6 @@ app.use('/api/auth', auth);
 app.use('/api/posts', posts);
 app.use('/api/groups', groups);
 
-app.listen(3000, () => {
+app.listen(5000, () => {
     console.log('Server started on port 3000');
 });
