@@ -11,6 +11,10 @@ export default function Signup() {
     const [password, setPassword] = useState('');
     
     const Postdata = async () => {
+        if(!/^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/.test(email)){
+            alert("wrong email addres pattern");
+            return
+        }
         fetch('/api/auth/signup', {
             method: "post",
             headers: {
@@ -28,7 +32,13 @@ export default function Signup() {
                     console.log(data.error);
                     history('/signup');
                 }else{
-                    history('/login');
+                    alert('Signup Successfully');
+                    localStorage.setItem('jwt', data.token);
+                    setTimeout(()=>{
+                        localStorage.removeItem('jwt');
+                    },60*5*1000);
+                    dispatch({type:"TOKEN", payload:data.token});
+                    history('/');
                 }
             }).catch(err=>{
                 console.log(err);

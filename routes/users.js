@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const varifyToken = require('../middleware/auth');
 const User = require('../models/User');
+const Userdata = require('../models/Userdata');
 
 /**
  * @route DELETE api/users/delete/:id
@@ -62,11 +63,44 @@ router.put('/unfollow/:id',varifyToken,async (req,res)=>{
  */
 router.get('/allusers',varifyToken, async (req,res)=>{
     try{
-        const user = await User.find();
+        const user = await Userdata.find();
         res.json({user});
     }catch(err){
         res.status(400).json({error:err});
     }
 });
+
+/**
+ * @router POST api/users/adduser
+ */
+router.post('/userdata' , async (req, res) => {
+    const newUser = await new Userdata(req.body);
+    try{
+        await newUser.save();
+        res.json({message:'Userdata added'});
+    }
+    catch(err){
+        res.status(400).json({error:err});
+    }
+});
+
+/**
+ * @router DELETE api/users/deleteuser/:id
+ */
+router.delete('/deleteuser/:id', async (req, res) => {
+    try{
+        const user = await Userdata.findById(req.params.id);
+        if(!user){
+            return res.status(404).json({error:'User not found or wrong credentials'});
+        }
+        await Userdata.findByIdAndDelete(req.params.id);
+        res.json({message:'User deleted'});
+    }
+    catch(err){
+        res.status(400).json({error:err});
+    }
+});
+
+    
 
 module.exports = router;

@@ -5,7 +5,7 @@ const User = require('../models/User');
 const varifyToken = (req, res, next) => {
     const token = req.body.token || req.query.token || req.headers['x-access-token'];
     if(!token){
-        return res.status(401).json({error:'Access denied'});
+        return res.status(401).json({error:'Access denied for token'});
     }
     try{
         jwt.verify(token, JWT_TOKEN, (err, payload) => {

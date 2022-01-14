@@ -21,6 +21,7 @@ import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Alluser from './Components/Alluser';
 import Navbar from './Components/Navbar';
+import Userdata from './Components/Userdata';
 
 
 export const UserContext = createContext();
@@ -29,9 +30,9 @@ const Routing = () => {
   const history = useNavigate();
   const {state, dispatch} = useContext(UserContext);
   useEffect(() => {
-    const user = JSON.parse(localStorage.getItem('user'));
-    if(user){
-      dispatch({type: 'USER', payload: user});
+    const token = JSON.parse(localStorage.getItem('jwt'));
+    if(token){
+      dispatch({type: 'TOKEN', payload: token});
       history('/');
     }else{
       history('/login');
@@ -39,9 +40,11 @@ const Routing = () => {
   },[])
   return (
     <Routes>
+      {/* <Route path="/" element={<Navbar />} /> */}
       <Route exact path="/login" element={<Login />} />
       <Route path="/signup" element={<Signup />} />
       <Route path="/allusers" element={<Alluser />} />
+      <Route path="/userdata" element={<Userdata />} />
     </Routes>
   )
 }

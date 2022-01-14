@@ -9,24 +9,30 @@ export default function Navbar() {
     const renderList = () => {
         if(state){
             return (
-                <>
-                    <li key="2"><Link to="/allusers">All users</Link></li>
-                </>
+                <nav class="navbar navbar-light bg-light">
+                <form class="form-inline">
+                    <button class="btn btn-outline-success" type="button"><Link to="/userdata">New User</Link></button>
+                    <button class="btn btn-outline-success" type="button"><Link to="/allusers">All users</Link></button>
+                </form>
+                </nav>
             )
         }else{
             return (
-                <>
-                    <li key="2"><Link to="/signup">Signup</Link></li>
-                    <li key="3"><Link to="/login">Login</Link></li>
-                </>
+                <nav class="navbar navbar-light bg-light">
+                <form class="form-inline">
+                    <button class="btn btn-outline-success" type="button"><Link to="/signup">Signup</Link></button>
+                    <button class="btn btn-sm btn-outline-secondary" type="button"><Link to="/login">Login</Link></button>
+                </form>
+                </nav>
             )
         }
     }
     return (
         <nav>
             <div className="nav-wrapper">
-                <Link to={state ? '/':'/login'} className="brand-logo">Home</Link>
-                <ul className="right">
+                <Link to={state ? '/':'/login'} className="brand-logo btn btn-sm btn-outline-secondary">Home</Link>
+                {/* // navbar randerlist */}
+                <ul id="nav-mobile" className="right hide-on-med-and-down">
                     {renderList()}
                 </ul>
             </div>

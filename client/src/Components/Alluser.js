@@ -18,6 +18,25 @@ const Alluser = () =>{
                 setData(data.user);
             })
     }, [])
+    const deleteUser = (userid) => {
+        fetch(`/api/users/deleteuser/${userid}`, {
+            method: "delete",
+            headers: {
+                "x-access-token": localStorage.getItem('jwt')
+            }
+        }).then(res => res.json())
+            .then(result => {
+                console.log(result);
+                console.log(data);
+                console.log(state);
+                if(result.error){
+                    alert(result.error);
+                }else{
+                    alert('User Deleted Successfully');
+                    setData(data.filter(user => user._id !== userid));
+                }
+            })
+    }
     return (
         <div className="container">
             {
@@ -27,8 +46,11 @@ const Alluser = () =>{
                             <div className="col-md-4 offset-md-4">
                                 <div className="card">
                                     <div className="card-body">
-                                        <h5 className="card-title">{user.username}</h5>
-                                        <h5 className="card-title">{user.email}</h5>
+                                        <h5 className="card-title">Username : {user.username}</h5>
+                                        <h5 className="card-title">Email : {user.email}</h5>
+                                        <h5 className="card-title">Phone : {user.number}</h5>
+                                        <h5 className="card-title">Address : {user.address}</h5>
+                                        <button className="btn btn-danger btn-block" onClick={()=>deleteUser(user._id)}>Delete</button>
                                     </div>
                                 </div>
                             </div>
