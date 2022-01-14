@@ -54,6 +54,7 @@ export default function Login() {
                         <input type={'password'} className="form-control" value={password} onChange={(e)=>setPassword(e.target.value)}/>
                         <button className="btn btn-primary btn-block" onClick={()=>Postdata()}>Login</button>
                         <p className="text-center">Don't have an account? <Link to="/signup">Register</Link></p>
+                        <button className="btn btn-primary btn-block" onClick={()=>alert("relax and try to remember your password")}>Forget password</button>
                     </div>
                 </div>
             </div>
