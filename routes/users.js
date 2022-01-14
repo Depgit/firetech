@@ -56,4 +56,17 @@ router.put('/unfollow/:id',varifyToken,async (req,res)=>{
     }
 });
 
+
+/**
+ * @router GET api/users/allusers
+ */
+router.get('/allusers',varifyToken, async (req,res)=>{
+    try{
+        const user = await User.find();
+        res.json({user});
+    }catch(err){
+        res.status(400).json({error:err});
+    }
+});
+
 module.exports = router;

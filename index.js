@@ -6,6 +6,9 @@ const dotenv = require('dotenv').config();
 const morgan = require('morgan');
 const mongoose = require('mongoose');
 const MONGO_URI = process.env.MONGO_URI;
+const cors = require('cors');
+
+const PORT = process.env.PORT || 8080;
 
 // routes
 const users = require('./routes/users');
@@ -21,6 +24,7 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 app.use(express.json());
 app.use(helmet());
 app.use(morgan('common'));
+app.use(cors());
 
 // routes middelware
 app.use('/api/users', users);
@@ -28,6 +32,10 @@ app.use('/api/auth', auth);
 app.use('/api/posts', posts);
 app.use('/api/groups', groups);
 
-app.listen(5000, () => {
-    console.log('Server started on port 3000');
+app.post("/post", (req, res) => {
+    res.json({ message: "Hello from server!" });
+});
+
+app.listen(PORT, () => {
+    console.log(`Server listening on ${PORT}`);
 });
