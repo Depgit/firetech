@@ -32,9 +32,14 @@ app.use('/api/auth', auth);
 app.use('/api/posts', posts);
 app.use('/api/groups', groups);
 
-app.post("/post", (req, res) => {
-    res.json({ message: "Hello from server!" });
-});
+if(process.env.NODE_ENV=="production"){
+    app.use(express.static('client/build'))
+    const path = require('path')
+    app.get("*",(req,res)=>{
+        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
+    })
+    
+}
 
 app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
