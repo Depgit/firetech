@@ -1,6 +1,6 @@
 # meme_create
 this is right now completely backend nodejs <br>
-<b> what you cna do in this </b><br>
+<b> what you can do in this </b><br>
 right now it support <br>
 <ol>
   <li>new registration, login, logout</li>
