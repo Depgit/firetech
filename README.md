@@ -34,7 +34,7 @@ JWT_TOKEN: "anything i.e. "sjdsn" "
 </pre>
 now run `node index` <br>
 open <a href="https://www.postman.com/"> postman </a> <br>
-make a post request with <b>http://localhost:3000/api/auth/register</b> <br>
+make a post request with <b>http://localhost:3000/api/auth/signup</b> <br>
 <b>DATA</b><br>
 <pre>
 "username": "your desired username"
