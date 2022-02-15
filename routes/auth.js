@@ -8,15 +8,16 @@ const varifyToken = require('../middleware/auth');
  * @route POST api/auth/signup
  */
 router.post('/signup', async (req, res) => {
-    const user = await new User(req.body);
-    user.isAdmin = false;
     try{
-        // if user already exist then error
-        const userExist = await User.findOne({username: req.body.username});
         const emailExist = await User.findOne({email: req.body.email});
-        if(userExist || emailExist){
+        if(emailExist){
             return res.status(400).json({error: 'User already exist'});
         }
+        const user = await new User({
+            username: req.body.username,
+            email: req.body.email,
+            password: req.body.password,
+        })
         const token = jwt.sign({ _id: user._id }, JWT_TOKEN);
         user.token = token;
         await user.save();
@@ -38,6 +39,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ _id: user._id }, JWT_TOKEN);
         user.token = token;
         await user.save();
+        console.log("jnvkjs>> ",user);
         res.json({token,user});
     }catch(err){
         res.status(400).json({error: err});
