@@ -61,6 +61,10 @@ router.post('/logout', varifyToken, async (req, res) => {
     }
 });
 
-
+router.get("/Topranker", async(req, res) => {
+    const topRanker = await User.find().sort({rating: -1}).limit(10);
+    const topContributers = await User.find().sort({contributions: -1}).limit(10);
+    res.json({topRanker, topContributers});
+})
 
 module.exports = router;

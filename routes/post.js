@@ -78,4 +78,5 @@ router.get("/post/allposts", async (req, res) => {
     res.json(posts);
 })
 
+
 module.exports = router;
