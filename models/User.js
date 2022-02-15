@@ -13,17 +13,17 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    rating: {
+        type: Number,
+        default: 0
+    },
+    contributions: {
+        type: Number,
+        default: 0
+    },
     avatar: {
         type: String,
-        default:""
-    },
-    follower: {
-        type: Array,
-        default: [],
-    },
-    isAdmin: {
-        type: Boolean,
-        default: false
+        default: ""
     },
     token: {
         type: String,

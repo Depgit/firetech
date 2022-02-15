@@ -8,9 +8,10 @@ const varifyToken = require('../middleware/auth');
  * @route POST api/auth/signup
  */
 router.post('/signup', async (req, res) => {
-    try{
+    try {
         const emailExist = await User.findOne({email: req.body.email});
-        if(emailExist){
+        const usernameExist = await User.findOne({username: req.body.username});
+        if(emailExist || usernameExist){
             return res.status(400).json({error: 'User already exist'});
         }
         const user = await new User({
@@ -21,9 +22,9 @@ router.post('/signup', async (req, res) => {
         const token = jwt.sign({ _id: user._id }, JWT_TOKEN);
         user.token = token;
         await user.save();
-        res.status(200).json({token,user});
-    }catch(err){
-        res.status(400).json({error:err});
+        res.status(200).json({token, user});
+    } catch(err) {
+        res.status(400).json({error: err});
     }
 });
 
@@ -51,7 +52,7 @@ router.post('/login', async (req, res) => {
  */
 router.post('/logout', varifyToken, async (req, res) => {
     const user = await User.findOne({ _id: req.user._id });
-    try{
+    try {
         user.token = '';
         await user.save();
         res.json({message:'Logout success'});
