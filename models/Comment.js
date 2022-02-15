@@ -13,6 +13,10 @@ const commentSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    dislikes: {
+        type: Array,    
+        default: []
+    },
     comment: {
         type: String,
         required: true

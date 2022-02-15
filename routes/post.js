@@ -57,11 +57,34 @@ router.put('/post/like/:id', varifyToken, async(req, res) => {
         await Post.updateOne({_id: req.params.id}, 
             { $addToSet : { likes: req.user.username }
         }, { useFindAndModify: false });
+        const result = await Post.findById(req.params.id).select({username: 1});
+        await User.updateOne({username: result.username},
+        { $inc: { rating: 3 } }, { useFindAndModify: false });
         res.status(200).json({message: 'Liked Post'});
     } catch {
         res.status(400).json({error: err, message: "got an error"});
     }
 });
+
+router.get('/comment/dislike/:id', varifyToken, async(req, res) => {
+    await Comment.updateOne({_id: req.params.id}, 
+        { $push : { dislikes : req.user.username }
+    }, { useFindAndModify: false });
+    const result = await Comment.findById(req.params.id).select({username: 1});
+    await User.updateOne({username: result.username},
+        { $inc: { rating: -1 } }, { useFindAndModify: false });
+    res.status(200).json({message: 'Disliked Comment'});
+})
+
+router.get('/post/dislike/:id', varifyToken, async(req, res) => {
+    await Post.updateOne({_id: req.params.id}, 
+        { $push : { dislikes : req.user.username }
+    }, { useFindAndModify: false });
+    const result = await Post.findById(req.params.id).select({username: 1});
+    await User.updateOne({username: result.username},
+        { $inc: { rating: -3 } }, { useFindAndModify: false });
+    res.status(200).json({message: 'Disliked Post'});
+})
 
 router.delete("/post/delete/:id", varifyToken, async (req, res) => {
     try {
