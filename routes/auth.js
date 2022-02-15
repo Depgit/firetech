@@ -61,6 +61,17 @@ router.post('/logout', varifyToken, async (req, res) => {
     }
 });
 
+router.post('/profile/edit', varifyToken, async (req, res) => {
+    const { avatar, password } = req.body;
+    try {
+        if (password == "") password = req.user.password;
+        await User.updateOne({ _id: req.user._id }, { avatar, password }, { useFindAndModify: false });
+        res.status(200).json({message: 'Avatar updated'});
+    } catch {
+        res.status(400).json({error: 'Error updating avatar'});
+    }
+});
+
 router.get("/Topranker", async(req, res) => {
     const topRanker = await User.find().sort({rating: -1}).limit(10)
         .select({username: 1, rating: 1});
