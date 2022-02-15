@@ -34,10 +34,9 @@ export default function Signup() {
                 }else{
                     alert('Signup Successfully');
                     localStorage.setItem('jwt', data.token);
-                    setTimeout(()=>{
-                        localStorage.removeItem('jwt');
-                    },60*5*1000);
                     dispatch({type:"TOKEN", payload:data.token});
+                    dispatch({type:"USER", payload:data.user});
+                    console.log({data});
                     history('/');
                 }
             }).catch(err=>{

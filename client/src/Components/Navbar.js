@@ -10,10 +10,12 @@ export default function Navbar() {
         if(state){
             return (
                 <nav class="navbar navbar-light bg-light">
-                <form class="form-inline">
-                    <button class="btn btn-outline-success" type="button"><Link to="/userdata">New User</Link></button>
-                    <button class="btn btn-outline-success" type="button"><Link to="/allusers">All users</Link></button>
-                </form>
+                    <div>
+                    <Link to={state ? '/':'/login'} className="brand-logo btn btn-outline-success">Home</Link>
+                    </div>
+                    <div>
+                    <Link to={state ? '/votes':'/login'} className="brand-logo btn btn-outline-success">Votes</Link>
+                    </div>
                 </nav>
             )
         }else{
@@ -21,7 +23,7 @@ export default function Navbar() {
                 <nav class="navbar navbar-light bg-light">
                 <form class="form-inline">
                     <button class="btn btn-outline-success" type="button"><Link to="/signup">Signup</Link></button>
-                    <button class="btn btn-sm btn-outline-secondary" type="button"><Link to="/login">Login</Link></button>
+                    <button class="btn btn-outline-success" type="button"><Link to="/login">Login</Link></button>
                 </form>
                 </nav>
             )
@@ -30,7 +32,6 @@ export default function Navbar() {
     return (
         <nav>
             <div className="nav-wrapper">
-                <Link to={state ? '/':'/login'} className="brand-logo btn btn-sm btn-outline-secondary">Home</Link>
                 {/* // navbar randerlist */}
                 <ul id="nav-mobile" className="right hide-on-med-and-down">
                     {renderList()}

@@ -32,10 +32,8 @@ export default function Login() {
                 }else{
                     alert('Login Successfully');
                     localStorage.setItem('jwt', data.token);  
-                    setTimeout(()=>{
-                        localStorage.removeItem('jwt');
-                    },60*5*1000);
                     dispatch({type:"TOKEN", payload:data.token});
+                    dispatch({type:"USER", payload:data.user});
                     history('/');
                 }
             }).catch(err=>{
