@@ -10,7 +10,7 @@ const cors = require('cors');
 
 const PORT = process.env.PORT || 8080;
 
-// routes
+// routes sending into master
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const posts = require('./routes/post');
