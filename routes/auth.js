@@ -9,9 +9,9 @@ const varifyToken = require('../middleware/auth');
  */
 router.post('/signup', async (req, res) => {
     try {
-        const emailExist = await User.findOne({email: req.body.email});
-        const usernameExist = await User.findOne({username: req.body.username});
-        if(emailExist || usernameExist){
+        const userExist = await User.findOne({$or: [{email: req.body.email}, {username: req.body.username}]})
+                                .select({_id : true});
+        if(userExist) {
             return res.status(400).json({error: 'User already exist'});
         }
         const user = await new User({
