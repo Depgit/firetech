@@ -68,7 +68,7 @@ router.post('/profile/edit', varifyToken, async (req, res) => {
         await User.updateOne({ _id: req.user._id }, { avatar, password }, { useFindAndModify: false });
         res.status(200).json({message: 'Avatar updated'});
     } catch {
-        res.status(400).json({error: 'Error updating avatar'});
+        res.status(400).json({message: 'Error updating avatar'});
     }
 });
 
