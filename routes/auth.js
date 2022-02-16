@@ -9,9 +9,9 @@ const varifyToken = require('../middleware/auth');
  */
 router.post('/signup', async (req, res) => {
     try {
-        const emailExist = await User.findOne({email: req.body.email});
-        const usernameExist = await User.findOne({username: req.body.username});
-        if(emailExist || usernameExist){
+        const userExist = await User.findOne({$or: [{email: req.body.email}, {username: req.body.username}]})
+                                .select({_id : true});
+        if(userExist) {
             return res.status(400).json({error: 'User already exist'});
         }
         const user = await new User({
@@ -61,9 +61,22 @@ router.post('/logout', varifyToken, async (req, res) => {
     }
 });
 
+router.post('/profile/edit', varifyToken, async (req, res) => {
+    const { avatar, password } = req.body;
+    try {
+        if (password == "") password = req.user.password;
+        await User.updateOne({ _id: req.user._id }, { avatar, password }, { useFindAndModify: false });
+        res.status(200).json({message: 'Avatar updated'});
+    } catch {
+        res.status(400).json({message: 'Error updating avatar'});
+    }
+});
+
 router.get("/Topranker", async(req, res) => {
-    const topRanker = await User.find().sort({rating: -1}).limit(10);
-    const topContributers = await User.find().sort({contributions: -1}).limit(10);
+    const topRanker = await User.find().sort({rating: -1}).limit(10)
+        .select({username: 1, rating: 1});
+    const topContributers = await User.find().sort({contributions: -1}).limit(10)
+        .select({username: 1, contributions: 1});
     res.json({topRanker, topContributers});
 })
 

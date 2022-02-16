@@ -17,6 +17,10 @@ const postSchema = new mongoose.Schema({
         type: Array,
         default: []
     },
+    dislikes: {
+        type: Array,
+        default: []
+    },
     date: {
         type: Date,
         default: Date.now()
