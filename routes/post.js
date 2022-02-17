@@ -21,6 +21,7 @@ router.post('/create/post', varifyToken, async (req, res) => {
         res.status(400).json({error: err, created: false});
     }
 });
+
 /**
  * @route PUT api/posts/comment/:id
  */
