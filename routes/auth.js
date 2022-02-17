@@ -72,11 +72,15 @@ router.post('/profile/edit', varifyToken, async (req, res) => {
     }
 });
 
+/**
+ * @route GET api/auth/Topranker
+ */
 router.get("/Topranker", async(req, res) => {
     const topRanker = await User.find().sort({rating: -1}).limit(10)
         .select({username: 1, rating: 1});
     const topContributers = await User.find().sort({contributions: -1}).limit(10)
         .select({username: 1, contributions: 1});
+    console.log("topranker>> ", topRanker);
     res.json({topRanker, topContributers});
 })
 

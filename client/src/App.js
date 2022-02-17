@@ -1,15 +1,12 @@
 import React from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
-import './App.css';
 import {reducer, initialState} from './reducers/reducer';
 import {createContext, useContext, useEffect, useReducer} from 'react';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import Alluser from './Components/Alluser';
 import Navbar from './Components/Navbar';
-import Userdata from './Components/Userdata';
 import Votes from './Components/Votes/Votes';
-
+import Topcontributer from './Components/Topcontributer/Topcontributer';
 
 export const UserContext = createContext();
 
@@ -39,6 +36,7 @@ function App() {
     <UserContext.Provider value={{state,dispatch}}>
       <BrowserRouter>
         <Navbar />
+        <Topcontributer />
         <Routing />
       </BrowserRouter>
     </UserContext.Provider>
