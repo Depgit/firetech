@@ -4,11 +4,9 @@ import {reducer, initialState} from './reducers/reducer';
 import {createContext, useContext, useEffect, useReducer} from 'react';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import Alluser from './Components/Alluser';
 import Navbar from './Components/Navbar/Navbar'
-import Userdata from './Components/Userdata';
 import Votes from './Components/Votes/Votes';
-import Topcontributer from './Components/Topcontributer/Topcontributer';
+import Home from './Components/Home/Home';
 
 export const UserContext = createContext();
 
@@ -38,7 +36,7 @@ function App() {
     <UserContext.Provider value={{state,dispatch}}>
       <BrowserRouter>
         <Navbar />
-        <Topcontributer />
+        <Home />
         <Routing />
       </BrowserRouter>
     </UserContext.Provider>

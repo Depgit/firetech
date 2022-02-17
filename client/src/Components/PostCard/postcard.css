@@ -1,0 +1,14 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.nav-bg {
+    background-color: azure;
+}
+.post-img {
+    height: 80vh;
+}
+.card-bm {
+    display: flex;
+    justify-content: space-between;
+}
