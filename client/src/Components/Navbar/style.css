@@ -1,0 +1,11 @@
+*{
+    margin: 0;
+    padding: 0;
+}
+.nav-bg {
+    background-color: azure;
+}
+.nav-left {
+    display: flex;
+    align-items: center;
+}

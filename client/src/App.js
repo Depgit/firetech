@@ -6,7 +6,7 @@ import {createContext, useContext, useEffect, useReducer} from 'react';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
 import Alluser from './Components/Alluser';
-import Navbar from './Components/Navbar';
+import Navbar from './Components/Navbar/Navbar'
 import Userdata from './Components/Userdata';
 import Votes from './Components/Votes/Votes';
 
