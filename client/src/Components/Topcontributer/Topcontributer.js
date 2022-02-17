@@ -22,7 +22,7 @@ const Topcontributer = () => {
 
     return (
         <div className="container w-25">
-            <table class="table table-secondary table-striped">
+            <table class="table table-primary table-striped">
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -31,7 +31,7 @@ const Topcontributer = () => {
                     </tr>
                 </thead>
                 {
-                    topContributers.map(topContributer => {
+                    topContributers.map((topContributer) => {
                         return (
                             <tbody>
                                 <tr>
