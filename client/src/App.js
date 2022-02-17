@@ -4,7 +4,7 @@ import {reducer, initialState} from './reducers/reducer';
 import {createContext, useContext, useEffect, useReducer} from 'react';
 import Login from './Components/Login';
 import Signup from './Components/Signup';
-import Navbar from './Components/Navbar';
+import Navbar from './Components/Navbar/Navbar';
 import Votes from './Components/Votes/Votes';
 import Topcontributer from './Components/Topcontributer/Topcontributer';
 
