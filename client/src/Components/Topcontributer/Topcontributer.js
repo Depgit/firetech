@@ -5,7 +5,7 @@ import { UserContext } from '../../App';
 const Topcontributer = () => {
     const [data, setData] = useState([]);
     const [topContributers, setTopContributers] = useState([]);
-    const { state, dispatch } = useContext(UserContext);    
+    const { state, dispatch } = useContext(UserContext);
     console.log(state);
     useEffect(() => {
         fetch('api/auth/Topranker', {
@@ -21,6 +21,7 @@ const Topcontributer = () => {
     }, [])
 
     return (
+<<<<<<< HEAD
         <div className="container w-25">
             <table class="table table-primary table-striped">
                 <thead>
@@ -45,6 +46,30 @@ const Topcontributer = () => {
                 }
             </table>
         </div>
+=======
+        <table class="table table-primary table-striped">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">username </th>
+                    <th scope="col">Contributions</th>
+                </tr>
+            </thead>
+            {
+                topContributers.map(topContributer => {
+                    return (
+                        <tbody>
+                            <tr>
+                                <th scope="row">1</th>
+                                <td>{topContributer.username}</td>
+                                <td>{topContributer.contributions}</td>
+                            </tr>
+                        </tbody>
+                    )
+                })
+            }
+        </table>
+>>>>>>> 9a3e855da3be12c911ac2a0392e3e8e2c31fa263
     )
 }
 export default Topcontributer;
