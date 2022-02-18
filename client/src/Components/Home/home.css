@@ -1,0 +1,8 @@
+.p-top{
+    padding-top: 55px;
+}
+
+.card-over{
+    overflow-y: scroll;
+    height: 90vh;
+}

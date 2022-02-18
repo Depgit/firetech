@@ -5,7 +5,7 @@ import Profileicon from '../images/profile-icon.svg'
 
 export default function Navbar() {
     return (
-        <div className="row">
+        <div className="row fixed-top">
             <div className="col-2" ></div>
             <div className="col-5 nav-bg">
                 <nav className="navbar navbar-light d-flex justify-content-between">

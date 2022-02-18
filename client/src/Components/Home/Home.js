@@ -10,9 +10,11 @@ export default function Home() {
 
     return (
         <>
-           <div className='row'>
+           <div className='row p-top'>
                 <div className='col-2'></div>
-                <div className='col-5'>
+                <div className='col-5 p-0 card-over '>
+                    <PostCard />
+                    <PostCard />
                     <PostCard />
                 </div>
                 <div className='col-3 p-0 m-0'>
