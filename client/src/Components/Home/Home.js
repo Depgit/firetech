@@ -8,7 +8,6 @@ import Grid from '../Grid/Grid';
 
 export default function Home() {
     const { state, dispatch } = useContext(UserContext);
-
     return (
         <>
            <div className='row p-top'>
