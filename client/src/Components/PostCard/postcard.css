@@ -12,3 +12,24 @@
     display: flex;
     justify-content: space-between;
 }
+.mobile{
+    display: block;
+}
+.button{
+    padding: 5px;
+    background-color: #007bff;
+    border-radius: 5px;
+    color: rgb(255, 255, 255)
+}
+
+@media screen and (max-width: 768px) {
+    .post-img {
+        height: 60vh;
+    }
+    .h-50{
+        height: 50% !important;
+    }
+    .mobile{
+        display: none;
+    }
+}

@@ -19,9 +19,9 @@ const Home = (props) => {
                             <img className="h-50" src={Like} />
                             <img className="h-50" src={Dislike} />
                         </div>
-                        <div><button class="btn btn-primary" type="submit">
-                            <img style={{ marginRight: "10px" }} src={Arl} />
-                            View Comments
+                        <div><button className="button" type="submit">
+                            <img className='' src={Arl}/>
+                            <span className='p-1'>Comment</span>
                         </button></div>
                     </div>
                 </div>

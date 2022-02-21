@@ -6,3 +6,20 @@
     overflow-y: scroll;
     height: 90vh;
 }
+
+.mobile{
+    display: block;
+}
+
+@media screen and (max-width: 768px) {
+    .mobile{
+        display: none;
+    } 
+    .col-3 , .col-2{
+        width: 0px;
+    }
+    .col-5{
+        width: 100%;
+    }
+    
+}

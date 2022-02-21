@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route, Routes, useNavigate } from 'react-router-dom'
 import {reducer, initialState} from './reducers/reducer';
 import {createContext, useContext, useEffect, useReducer} from 'react';
@@ -32,11 +32,12 @@ const Routing = () => {
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
+  const [topRender, setTopRender] = useState(false);
   return (
     <UserContext.Provider value={{state,dispatch}}>
       <BrowserRouter>
-        <Navbar />
-        {/* <Home /> */}
+        <Navbar setTopRender={setTopRender} topRender={topRender} />
+        <Home topRender={topRender}/>
         <Routing />
       </BrowserRouter>
     </UserContext.Provider>
