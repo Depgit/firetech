@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "./images/postimg.jpg";
-import Like from "./images/like.svg";
-import Dislike from "./images/dislike.svg";
+import Like from "../images/like.svg";
+import Dislike from "../images/dislike.svg";
 import Arl from "./images/arl.svg";
 import "./postcard.css";
 

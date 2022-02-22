@@ -1,14 +1,16 @@
 import React from "react";
 import Home from "../images/Home.svg";
 import Profileicon from "../images/profile-icon.svg";
+import contest from "../images/contest.svg";
 import './navbar.css';
 
 export default function NevLeft(props) {
     return (
         <div>
             <div className="mobile">
-                <img src={Home} className="nav-img h-50 " alt="..." />
-                <img src={Profileicon} className="nav-img h-50 mx-3" alt="..." />
+                <img src={contest} className="nav-img h-50 " alt="..." />
+                <img src={Home} className="nav-img h-50 mx-3" alt="..." />
+                <img src={Profileicon} className="nav-img h-50 " alt="..." />
             </div>
             <div className="desktop">
                 <div className="d-flex">
@@ -19,6 +21,7 @@ export default function NevLeft(props) {
                             props.setTopRender(!props.topRender)
                         }}
                     ><h6>Rankers</h6> </a>
+                    <a href='#' className="mx-2 text-decoration-none text-dark"><h6>Contests</h6> </a>
                 </div>
             </div>
         </div>
