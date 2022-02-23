@@ -34,7 +34,7 @@ export default function Signup() {
                 }else{
                     alert('Signup Successfully');
                     localStorage.setItem('jwt', data.token);
-                    dispatch({type:"TOKEN", payload:data.token});
+                    localStorage.setItem("user",data.user);
                     dispatch({type:"USER", payload:data.user});
                     console.log({data});
                     history('/');

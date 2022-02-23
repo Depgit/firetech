@@ -14,9 +14,11 @@ const Routing = () => {
   const history = useNavigate();
   const {state, dispatch} = useContext(UserContext);
   useEffect(() => {
-    const token = (localStorage.getItem('jwt'));
-    if(token){
-      dispatch({type: 'TOKEN', payload: token});
+    const user = (localStorage.getItem("user"));
+    console.log("user>> ",user);
+    if(user){
+      console.log("checkig user>> ",user);
+      dispatch({type: 'USER', payload: user});
     }else{
       history('/login');
     }
@@ -33,6 +35,7 @@ const Routing = () => {
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [topRender, setTopRender] = useState(false);
+  // console.log("state app js>> ",state);
   return (
     <UserContext.Provider value={{state,dispatch}}>
       <BrowserRouter>

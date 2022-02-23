@@ -8,6 +8,9 @@ export const reducer = (state, action)=>{
     if(action.type==="TOKEN"){
         return action.payload
     }
+    if(action.type==="POST"){
+        return action.post
+    }
     if(action.type==="CLEAR"){return null}
     return state
 }

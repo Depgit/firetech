@@ -31,9 +31,9 @@ export default function Login() {
                     alert(data.error);
                 }else{
                     alert('Login Successfully');
-                    localStorage.setItem('jwt', data.token);  
-                    dispatch({type:"TOKEN", payload:data.token});
-                    dispatch({type:"USER", payload:data.user});
+                    localStorage.setItem("jwt",data.token)
+                    localStorage.setItem("user",JSON.stringify(data.user))
+                    dispatch({type:"USER",payload:data.user})
                     history('/');
                 }
             }).catch(err=>{
