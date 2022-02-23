@@ -7,17 +7,16 @@ const profile = 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'
 
 export default function Profile(props) {
     const { state, dispatch } = useContext(UserContext);
-    let val = (state);
-    val = JSON.parse(val);
+    let val = state;
     console.log("profile>> ", val);
     
     return (
         <>
             <div className='row'>
                 <div className='col-6'>
-                    <div className='h2'> {}</div>
-                    <div >Email: {}</div>
-                    <div >Contribution: {}</div>
+                    <div className='h2'> {val?.username}</div>
+                    <div >Email: {val?.email}</div>
+                    <div >Contribution: {val?.contributions}</div>
                     <div >ratting: {}</div>
                     
                 </div>

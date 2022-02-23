@@ -14,9 +14,9 @@ const Routing = () => {
   const history = useNavigate();
   const {state, dispatch} = useContext(UserContext);
   useEffect(() => {
-    const user = (localStorage.getItem("user"));
+    const user = JSON.parse(localStorage.getItem("user"));
     console.log("user>> ",user);
-    if(user){
+    if(user?.username){
       console.log("checkig user>> ",user);
       dispatch({type: 'USER', payload: user});
     }else{
