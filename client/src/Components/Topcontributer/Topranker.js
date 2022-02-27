@@ -1,7 +1,7 @@
 import React, { useState, useEffect, useReducer, useContext } from 'react';
 import { UserContext } from '../../App';
 
-const Topcontributer = () => {
+const Toprater = () => {
     const [data, setData] = useState([]);
     const [toprankers, settoprankers] = useState([]);
     const { state, dispatch } = useContext(UserContext);
@@ -21,7 +21,7 @@ const Topcontributer = () => {
 
     return (
         <div>
-            <table class="table table-primary table-striped">
+            <table class="table table-primary table-striped" >
                 <thead>
                     <tr>
                         <th scope="col">#</th>
@@ -46,4 +46,4 @@ const Topcontributer = () => {
         </div>
     )
 }
-export default Topcontributer;
+export default Toprater;

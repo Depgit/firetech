@@ -59,10 +59,11 @@ const itemData = [
 export default function Contest(props) {
     return (
         <>
-            <div class="alert alert-success p-2 ct-label" role="alert">
+            <div class="alert alert-success p-2 ct-label" role="alert" >
                 <strong> Weekly Contest {Date.now()}</strong>
             </div>
             <div className='row m-0'>
+                <div className='col-2'></div>
                 {
                     itemData.map((item, index) => {
                         return (

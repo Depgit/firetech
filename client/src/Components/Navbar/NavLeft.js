@@ -3,28 +3,34 @@ import Home from "../images/Home.svg";
 import Profileicon from "../images/profile-icon.svg";
 import contest from "../images/contest.svg";
 import './navbar.css';
+import { Link } from "react-router-dom";
 
 export default function NevLeft(props) {
+
+
+
     return (
         <div>
             <div className="mobile">
-                <img src={contest} className="nav-img h-50 " alt="..." />
-                <img src={Home} className="nav-img h-50 mx-3" alt="..." />
-                <img src={Profileicon} className="nav-img h-50 " alt="..." />
+                <div className="row">
+                    <div className="col-10 d-flex">
+                        <Link to="/contests"> <img src={contest} alt="contest" className="h-100 mx-4" /></Link>
+                        <Link to="/"> <img src={Home} alt="Home" className="h-100 " /></Link>
+                        <Link to="/profile"> <img src={Profileicon} alt="profile" className="h-100 mx-4" /></Link>
+                    </div>
+                    <div className="col-2"></div>
+                </div>
             </div>
             <div className="desktop">
                 <div className="d-flex">
-                    <a href='#' className="text-decoration-none text-dark"><h6>Home</h6></a>
-                    <a href='#' className="mx-2 text-decoration-none text-dark"><h6>Profile</h6> </a>
-                    <a href='#' className="mx-0 text-decoration-none text-dark"
-                        onClick={() => {
-                            props.setTopRender(!props.topRender)
-                        }}
-                    ><h6>Rankers</h6> </a>
-                    <a href='#' className="mx-2 text-decoration-none text-dark"><h6>Contests</h6> </a>
+                    <Link to="/"> <a href='#' className="text-decoration-none text-dark"  ><>Home</></a> </Link>
+                    <Link to="/profile"> <a href='#' className="text-decoration-none mx-2 text-dark"  ><>Profile</></a> </Link>
+                    <Link to="/contests"> <a href='#' className="text-decoration-none text-dark"  ><>Contests</></a> </Link>
+                    <Link to="/rankers"> <a href='#' className="text-decoration-none mx-2 text-dark"  ><>Rankers</></a> </Link>
                 </div>
             </div>
         </div>
     );
 }
+
 

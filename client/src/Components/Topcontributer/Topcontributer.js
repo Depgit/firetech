@@ -21,7 +21,7 @@ const Topcontributer = () => {
     }, [])
 
     return (
-        <table class="table table-primary table-striped">
+        <table class="table table-primary table-striped" >
             <thead>
                 <tr>
                     <th scope="col">#</th>

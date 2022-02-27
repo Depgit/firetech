@@ -9,7 +9,7 @@ const Home = (props) => {
     return (
         <>
             <div className="card post-card">
-                <img className="card-img-top post-img m-auto" src={Image}></img>
+                <img className="card-img-top post-img m-auto" src={props.image}></img>
                 <div className="card-body">
                     <h6 className="card-title">Card title</h6>
                     <p>JavaScript creates an array by calling a specific

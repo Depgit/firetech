@@ -7,6 +7,12 @@ import Signup from './Components/Signup';
 import Navbar from './Components/Navbar/Navbar'
 import Votes from './Components/Votes/Votes';
 import Home from './Components/Home/Home';
+import Profile from './Components/Profile/Profile';
+import Contest from './Components/Contest/Contest';
+import Contributer from './Components/Topcontributer/Topcontributer'
+import Grid from './Components/Grid/Grid';
+import PostCard from './Components/PostCard/PostCard';
+import ShowToper from './Components/Topcontributer/ShowToper';
 
 export const UserContext = createContext();
 
@@ -15,9 +21,7 @@ const Routing = () => {
   const {state, dispatch} = useContext(UserContext);
   useEffect(() => {
     const user = JSON.parse(localStorage.getItem("user"));
-    console.log("user>> ",user);
     if(user?.username){
-      console.log("checkig user>> ",user);
       dispatch({type: 'USER', payload: user});
     }else{
       history('/login');
@@ -27,20 +31,21 @@ const Routing = () => {
     <Routes>
       <Route exact path="/login" element={<Login />} />
       <Route exact path="/signup" element={<Signup />} />
-      <Route exact path="/votes" element={<Votes />} />
+      <Route exact path="/profile" element={<Profile />} />
+      <Route exact path="/contests" element={<Contest />} />
+      <Route exact path="/rankers" element={<ShowToper /> } />
+      <Route path="/" element={<Home />} />
     </Routes>
   )
 }
 
 function App() {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [topRender, setTopRender] = useState(false);
-  // console.log("state app js>> ",state);
+
   return (
     <UserContext.Provider value={{state,dispatch}}>
       <BrowserRouter>
-        <Navbar setTopRender={setTopRender} topRender={topRender} />
-        <Home topRender={topRender}/>
+        <Navbar />
         <Routing />
       </BrowserRouter>
     </UserContext.Provider>
