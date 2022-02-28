@@ -4,6 +4,7 @@ import Profileicon from "../images/profile-icon.svg";
 import contest from "../images/contest.svg";
 import './navbar.css';
 import { Link } from "react-router-dom";
+import createpost from "../Createpost/image/createpost.svg";
 
 export default function NevLeft(props) {
 
@@ -14,9 +15,10 @@ export default function NevLeft(props) {
             <div className="mobile">
                 <div className="row">
                     <div className="col-10 d-flex">
-                        <Link to="/contests"> <img src={contest} alt="contest" className="h-100 mx-4" /></Link>
-                        <Link to="/"> <img src={Home} alt="Home" className="h-100 " /></Link>
-                        <Link to="/profile"> <img src={Profileicon} alt="profile" className="h-100 mx-4" /></Link>
+                        <Link to="/createpost"> <img src={createpost} alt="createpost" className="h-100 me-4" /></Link>
+                        <Link to="/contests"> <img src={contest} alt="contest" className="h-100 me-4" /></Link>
+                        <Link to="/"> <img src={Home} alt="Home" className="h-100 me-4" /></Link>
+                        <Link to="/profile"> <img src={Profileicon} alt="profile" className="h-100 me-4" /></Link>
                     </div>
                     <div className="col-2"></div>
                 </div>

@@ -5,21 +5,39 @@ const Post = require('../models/Post');
 const Comment = require('../models/Comment');
 
 /**
- * @route POST api/posts/creatememe
+ * @route POST api/posts/createpost
  * @example https://i.ibb.co/wrZCs78/image.png
  */
-router.post('/create/post', varifyToken, async (req, res) => {
+router.post('/createpost', varifyToken, async (req, res) => {
+    console.log("req.body>> ",req.body);
     const post = await new Post({
-        title: req.body.title,
-        meme: req.body.meme,
         username : req.user.username,
+        title: req.body.title,
+        meme: req.body.url,
     });
+    console.log(req.user);
+    console.log("post>>1 ", post);
     try {
+        console.log("post>>2 ", post);
         await post.save();
-        res.status(201).json({created: true});
+        console.log("post>>3 ", post);
+        res.status(201).json({post:post, created: true});
     }catch(err){
         res.status(400).json({error: err, created: false});
     }
+});
+
+/**
+ * @route GET api/posts/allposts
+ * @example https://i.ibb.co/wrZCs78/image.png
+ */
+router.get('/allposts', async (req, res) => {
+    try {
+        const posts = await Post.find().sort({date: -1});
+        res.json(posts);
+    }catch(err){
+        res.status(400).json({error: err});
+    }   
 });
 
 /**

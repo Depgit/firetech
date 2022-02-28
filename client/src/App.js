@@ -13,6 +13,7 @@ import Contributer from './Components/Topcontributer/Topcontributer'
 import Grid from './Components/Grid/Grid';
 import PostCard from './Components/PostCard/PostCard';
 import ShowToper from './Components/Topcontributer/ShowToper';
+import Createpost from './Components/Createpost/Createpost';
 
 export const UserContext = createContext();
 
@@ -34,6 +35,7 @@ const Routing = () => {
       <Route exact path="/profile" element={<Profile />} />
       <Route exact path="/contests" element={<Contest />} />
       <Route exact path="/rankers" element={<ShowToper /> } />
+      <Route exact path="/createpost" element={<Createpost />} />
       <Route path="/" element={<Home />} />
     </Routes>
   )

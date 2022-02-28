@@ -16,7 +16,7 @@ export default function Navbar( props ) {
                     </div>
                 </div>
                 {/* <hr className="solid m-0"></hr> */}
-                <div className='nulify d-flex align-items-center  '>
+                <div className='nulify d-flex align-items-center me-4 '>
                     <NavLeft />
                 </div>
             </div>
