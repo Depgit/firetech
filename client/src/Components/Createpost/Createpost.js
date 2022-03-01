@@ -7,7 +7,7 @@ export default function Createpost() {
     const [description, setdescription] = useState('');
     const {state, dispatch} = useContext(UserContext);
 
-    console.log(state);
+   
     
     const validateLink = (url) => {
         if (url.length === 0) {

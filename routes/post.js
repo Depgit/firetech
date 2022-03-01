@@ -34,11 +34,13 @@ router.post('/createpost', varifyToken, async (req, res) => {
 router.get('/allposts', async (req, res) => {
     try {
         const posts = await Post.find().sort({date: -1});
-        res.json(posts);
+        console.log("posts>> ", posts);
+        res.status(201).json({posts:posts, created: true});
     }catch(err){
         res.status(400).json({error: err});
     }   
 });
+
 
 /**
  * @route PUT api/posts/comment/:id

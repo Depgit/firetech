@@ -15,22 +15,24 @@ export default function Home(props) {
     console.log("home page running .... ", url);
 
     useEffect(() => {
-        fetch('/allpost', {
+        fetch('api/posts/allposts', {
+            method: "get",
             headers: {
-                "x-access-token": localStorage.getItem("jwt")
+                "x-access-token": localStorage.getItem('jwt')
             }
         }).then(res => res.json())
-            .then(result => {
-                console.log(result)
-                setData(result.allpost)
-            }
-            )
+            .then(data => {
+                console.log(data);
+                setData(data.posts);
+            })
     }, [])
 
+    console.log("data", data);
+    
     return (
         <>
             <div className='row p-top m-1'>
-                <Grid />
+                <Grid data={data} />
             </div>
         </>
     )

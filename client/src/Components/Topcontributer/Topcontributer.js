@@ -6,7 +6,7 @@ const Topcontributer = () => {
     const [data, setData] = useState([]);
     const [topContributers, setTopContributers] = useState([]);
     const { state, dispatch } = useContext(UserContext);
-    console.log(state);
+
     useEffect(() => {
         fetch('api/auth/Topranker', {
             method: "get",
