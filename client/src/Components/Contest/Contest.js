@@ -56,10 +56,7 @@ const itemData = [
 ];
 
 
-export default function Contest() {
-    const [data, setData] = useState([]);
-
-    
+export default function Contest(props) {
     return (
         <>
             <div class="alert alert-success p-2 ct-label" role="alert" >
@@ -68,7 +65,26 @@ export default function Contest() {
             <div className='row m-0'>
                 <div className='col-2'></div>
                 {
-                    
+                    itemData.map((item, index) => {
+                        return (
+                            <div className='col-4 p-1'>
+                                <div className='card'>
+                                    <div><b>{index < 3 ? index + 1 : 'noobie'}</b></div>
+                                    <img className='card-img-top' src={item.img} alt='Card image cap' />
+                                    <div className='card-body d-flex justify-content-between align-items-center'>
+                                        <div className='d-flex'>
+                                            <p className='card-title mx-2'>{item.title}</p>
+                                            <img src={Like} className='like ' />
+                                            <img src={Dislike} className='dislike' />
+                                        </div>
+                                        <div className='d-flex'>
+                                            <img src={FullScreen} className='full-screen' />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        )
+                    })
                 }
             </div>
         </>
