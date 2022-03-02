@@ -9,18 +9,13 @@ const Comment = require('../models/Comment');
  * @example https://i.ibb.co/wrZCs78/image.png
  */
 router.post('/createpost', varifyToken, async (req, res) => {
-    console.log("req.body>> ",req.body);
     const post = await new Post({
         username : req.user.username,
         title: req.body.title,
         meme: req.body.url,
     });
-    console.log(req.user);
-    console.log("post>>1 ", post);
-    try {
-        console.log("post>>2 ", post);
+    try { 
         await post.save();
-        console.log("post>>3 ", post);
         res.status(201).json({post:post, created: true});
     }catch(err){
         res.status(400).json({error: err, created: false});
@@ -34,7 +29,6 @@ router.post('/createpost', varifyToken, async (req, res) => {
 router.get('/allposts', async (req, res) => {
     try {
         const posts = await Post.find().sort({date: -1});
-        console.log("posts>> ", posts);
         res.status(201).json({posts:posts, created: true});
     }catch(err){
         res.status(400).json({error: err});
@@ -117,10 +111,6 @@ router.delete("/post/delete/:id", varifyToken, async (req, res) => {
     }
 });
 
-router.get("/post/allposts", async (req, res) => {
-    const posts = await Post.find().sort({date: -1});
-    res.json(posts);
-})
 
 
 module.exports = router;

@@ -7,9 +7,9 @@ export default function Grid(props) {
     const [itemData, setItemData] = useState([]);
 
     useEffect(() => {
-        setItemData([...props.data]);
+        props.data && setItemData([...props.data]);
     }, [props.data])
-    console.log("itemData", itemData,props);
+    
     return (
         <>
             <div className='row m-1'>

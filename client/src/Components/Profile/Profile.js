@@ -22,6 +22,7 @@ export default function Profile() {
                 setPics(result.mypost)
             })
     }, [])
+    
     return (
         <div>
             <div className="row" style={{ marginTop: "60px" }}>
@@ -44,7 +45,7 @@ export default function Profile() {
             <div className='row'>
                 <div className='col-2'></div>
                 <div className='col-8'>
-                    <Grid />
+                    {/* <Grid /> */}
                 </div>
                 <div className='col-2'></div>
             </div>

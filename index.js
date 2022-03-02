@@ -14,6 +14,7 @@ const PORT = process.env.PORT || 8080;
 const users = require('./routes/users');
 const auth = require('./routes/auth');
 const posts = require('./routes/post');
+const contest = require('./routes/contest');
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
     console.log('Connected to MongoDB');
@@ -29,6 +30,7 @@ app.use(cors());
 app.use('/api/users', users);
 app.use('/api/auth', auth);
 app.use('/api/posts', posts);
+app.use('/api/contest', contest);
 
 if(process.env.NODE_ENV=="production"){
     app.use(express.static('client/build'))

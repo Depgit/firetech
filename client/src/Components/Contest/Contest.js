@@ -1,65 +1,32 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import FullScreen from '../images/Full-screen.svg'
 import Like from "../images/like.svg";
 import Dislike from "../images/dislike.svg";
 import './contest.css'
 
-const itemData = [
-    {
-        img: 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e',
-        title: 'Breakfast',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1551782450-a2132b4ba21d',
-        title: 'Burger',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1522770179533-24471fcdba45',
-        title: 'Camera',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1444418776041-9c7e33cc5a9c',
-        title: 'Coffee',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1533827432537-70133748f5c8',
-        title: 'Hats',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1558642452-9d2a7deb7f62',
-        title: 'Honey',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1516802273409-68526ee1bdd6',
-        title: 'Basketball',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1518756131217-31eb79b20e8f',
-        title: 'Fern',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1597645587822-e99fa5d45d25',
-        title: 'Mushrooms',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1567306301408-9b74779a11af',
-        title: 'Tomato basil',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1471357674240-e1a485acb3e1',
-        title: 'Sea star',
-    },
-    {
-        img: 'https://images.unsplash.com/photo-1589118949245-7d38baf380d6',
-        title: 'Bike',
-    },
-];
 
 
 export default function Contest(props) {
+    const [itemData, setItemData] = useState([]);
+
+    useEffect(() => {
+        fetch('/api/contest/data', {
+            method: 'GET',
+            headers: {
+                'Content-Type': 'application/json',
+                'x-access-token': localStorage.getItem('jwt')
+            }
+        }).then(res => res.json())
+            .then(result => {
+                console.log(result)
+                setItemData(result.data)
+            })
+    }, [])
+
+
     return (
         <>
-            <div class="alert alert-success p-2 ct-label" role="alert" >
+            <div className="alert alert-success p-2 ct-label" role="alert" >
                 <strong> Weekly Contest {Date.now()}</strong>
             </div>
             <div className='row m-0'>
@@ -70,7 +37,7 @@ export default function Contest(props) {
                             <div className='col-4 p-1'>
                                 <div className='card'>
                                     <div><b>{index < 3 ? index + 1 : 'noobie'}</b></div>
-                                    <img className='card-img-top' src={item.img} alt='Card image cap' />
+                                    <img className='card-img-top' src={item.meme} alt='Card image cap' />
                                     <div className='card-body d-flex justify-content-between align-items-center'>
                                         <div className='d-flex'>
                                             <p className='card-title mx-2'>{item.title}</p>

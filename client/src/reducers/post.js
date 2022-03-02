@@ -2,10 +2,7 @@ export const initialState = null
 
 
 export const reducer = (state, action)=>{
-    if(action.type==="USER"){
-        return action.payload
-    }
-    if(action.type==="TOKEN"){
+    if(action.type==="POSTS"){
         return action.payload
     }
     if(action.type==="CLEAR"){return null}
