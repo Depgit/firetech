@@ -120,22 +120,20 @@ router.put('/comment/like/:id', varifyToken, async (req, res) => {
 })
 
 router.put('/post/like/:id', varifyToken, async (req, res) => {
-    try {
-        const result = await Post.findById(req.params.id).select({ dislikes: 1 });
-        if (result.dislikes.indexOf(req.user.username) > -1) {
-            res.status(400).json({ error: 'You already disliked this post' });
+    try{
+        const checkDislike  = await Post.findById(req.params.id).select({ dislikes: 1 });
+        if(checkDislike.dislikes.includes(req.user.username)){
+            res.status(400).json({ message: 'You already disliked this post' });
         }else{
             await Post.updateOne({ _id: req.params.id },
                 {
                     $addToSet: { likes: req.user.username }
                 }, { useFindAndModify: false });
-            const result = await Post.findById(req.params.id).select({ username: 1 });
-            await User.updateOne({ username: result.username },
-                { $inc: { rating: 3 } }, { useFindAndModify: false });
-            res.status(200).json({ message: 'Liked Post' });
+            await User.updateOne({ username: req.user.username },
+                { $inc: { rating: 1 } }, { useFindAndModify: false });
         }
-    } catch {
-        res.status(400).json({ error: err, message: "got an error" });
+    }catch(err){
+        res.status(400).json({ error: err });
     }
 });
 
@@ -152,19 +150,17 @@ router.get('/comment/dislike/:id', varifyToken, async (req, res) => {
 
 router.put('/post/dislike/:id', varifyToken, async (req, res) => {
     try {
-        const result = await Post.findById(req.params.id).select({ likes: 1 });
-        console.log("result in displike >> ", result); 
-        if (result.likes.indexOf(req.user.username) > -1) {
-            res.status(400).json({ error: 'You already liked this post' });
-        }else{
+        const checkLike = await Post.findById(req.params.id).select({ likes: 1 });
+        if(checkLike.likes.includes(req.user.username)){
+            res.status(400).json({ message: 'You already liked this post' });
+        }
+        else{
             await Post.updateOne({ _id: req.params.id },
                 {
                     $push: { dislikes: req.user.username }
                 }, { useFindAndModify: false });
-            const result = await Post.findById(req.params.id).select({ username: 1 });
-            await User.updateOne({ username: result.username },
-                { $inc: { rating: -3 } }, { useFindAndModify: false });
-            res.status(200).json({ message: 'Disliked Post' });
+            await User.updateOne({ username: req.user.username },
+                { $inc: { rating: -1 } }, { useFindAndModify: false });
         }
     }
     catch {
