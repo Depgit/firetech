@@ -47,26 +47,51 @@ router.get('/mypost', varifyToken, async (req, res) => {
     }
 });
 
+/**
+ * @route GET api/posts/post/:id
+ */
+router.get('/post/:id', async (req, res) => {
+    try {
+        const post = await Post.findById(req.params.id);
+        res.status(201).json({post:post, created: true});
+    }catch(err){
+        res.status(400).json({error: err});
+    }
+});
+
 
 
 /**
- * @route PUT api/posts/comment/:id
+ * @route PUT api/posts/comment/create/:id
  */
-router.put('/comment/create/:id', varifyToken, async (req, res) => {
+router.post('/comment/create/:id', varifyToken, async (req, res) => {
     const post = await Post.findById(req.params.id).select({_id: 1});
     if (!post) {
         return res.status(404).json({error:'Post not found or deleted'});
     }
-    const newComment = {
+    
+    const newComment = new Comment({
         username: req.user.username,
         comment: req.body.comment,
         postId: req.params.id,
-    };
+    });
     try{
-        await Comment.save(newComment);
+        await newComment.save();
         res.status(201).json({created: true});
     }catch(err){
         res.status(400).json({error: err, created: false});
+    }
+});
+
+/**
+ * @route GET api/posts/comment/:id
+ */
+router.get('/comment/:id', async (req, res) => {
+    try {
+        const comments = await Comment.find({postId: req.params.id}).sort({date: -1});
+        res.status(201).json({comments:comments, created: true});
+    }catch(err){
+        res.status(400).json({error: err});
     }
 });
 

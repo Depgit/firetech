@@ -5,7 +5,7 @@ import Dislike from "../images/dislike.svg";
 import Arl from "./images/arl.svg";
 import "./postcard.css";
 
-const Home = (props) => {
+const PostCard = (props) => {
     return (
         <>
             <div className="card post-card">
@@ -19,10 +19,13 @@ const Home = (props) => {
                             <img className="h-50" src={Like} />
                             <img className="h-50" src={Dislike} />
                         </div>
-                        <div><button className="button" type="submit">
-                            <img className='' src={Arl}/>
-                            <span className='p-1'>Comment</span>
-                        </button></div>
+                        {
+                            !(props.comment) && 
+                            <div><button className="button" type="submit">
+                                <img className='' src={Arl}/>
+                                <span className='p-1'>Comment</span>
+                            </button></div>
+                        }
                     </div>
                 </div>
             </div>
@@ -30,4 +33,4 @@ const Home = (props) => {
     );
 }
 
-export default Home;
+export default PostCard;

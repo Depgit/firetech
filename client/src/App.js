@@ -15,6 +15,7 @@ import Grid from './Components/Grid/Grid';
 import PostCard from './Components/PostCard/PostCard';
 import ShowToper from './Components/Topcontributer/ShowToper';
 import Createpost from './Components/Createpost/Createpost';
+import Comment from './Components/Comment/Comment';
 
 export const UserContext = createContext();
 export const PostContext = createContext();
@@ -38,6 +39,7 @@ const Routing = () => {
       <Route exact path="/contests" element={<Contest />} />
       <Route exact path="/rankers" element={<ShowToper /> } />
       <Route exact path="/createpost" element={<Createpost />} />
+      <Route exact path="/comment/:id" element={<Comment />} />
       <Route path="/" element={<Home />} />
     </Routes>
   )

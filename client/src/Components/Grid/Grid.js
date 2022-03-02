@@ -1,10 +1,12 @@
 import React ,{useEffect, useState} from 'react'
+import { useNavigate } from 'react-router-dom';
 import FullScreen from '../images/Full-screen.svg'
 import './grid.css'
 
 
 export default function Grid(props) {
     const [itemData, setItemData] = useState([]);
+    const history= useNavigate();
 
     useEffect(() => {
         props.data && setItemData([...props.data]);
@@ -22,7 +24,13 @@ export default function Grid(props) {
                                     <img className='card-img-top' src={item.meme} alt='Card image cap' />
                                     <div className='card-body d-flex justify-content-between align-items-center'>
                                         <p className='card-title'>{item.title}</p>
-                                        <img src={FullScreen} className='full-screen' />
+                                        <img 
+                                            src={FullScreen} 
+                                            className='full-screen'
+                                            onClick={(e)=>{
+                                                history(`/comment/${item._id}`)
+                                            }}
+                                        />
                                     </div>
                                 </div>
                             </div>
