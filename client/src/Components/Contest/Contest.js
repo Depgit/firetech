@@ -3,6 +3,7 @@ import FullScreen from '../images/Full-screen.svg'
 import Like from "../images/like.svg";
 import Dislike from "../images/dislike.svg";
 import './contest.css'
+import Grid from '../Grid/Grid';
 
 
 
@@ -31,28 +32,7 @@ export default function Contest(props) {
             </div>
             <div className='row m-0'>
                 <div className='col-2'></div>
-                {
-                    itemData.map((item, index) => {
-                        return (
-                            <div className='col-4 p-1'>
-                                <div className='card'>
-                                    <div><b>{index < 3 ? index + 1 : 'noobie'}</b></div>
-                                    <img className='card-img-top' src={item.meme} alt='Card image cap' />
-                                    <div className='card-body d-flex justify-content-between align-items-center'>
-                                        <div className='d-flex'>
-                                            <p className='card-title mx-2'>{item.title}</p>
-                                            <img src={Like} className='like ' />
-                                            <img src={Dislike} className='dislike' />
-                                        </div>
-                                        <div className='d-flex'>
-                                            <img src={FullScreen} className='full-screen' />
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        )
-                    })
-                }
+                <Grid data={itemData} />
             </div>
         </>
     )

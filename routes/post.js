@@ -48,12 +48,25 @@ router.get('/mypost', varifyToken, async (req, res) => {
 });
 
 /**
- * @route GET api/posts/post/:id
+ * @route GET api/posts/post/:username
  */
-router.get('/post/:id', async (req, res) => {
+router.get('/post/:username', async (req, res) => {
     try {
-        const post = await Post.findById(req.params.id);
-        res.status(201).json({post:post, created: true});
+        // all post of username
+        const posts = await Post.find({username: req.params.username}).sort({date: -1});        
+        
+        res.status(201).json({posts:posts, created: true});
+    }catch(err){
+        res.status(400).json({error: err});
+    }
+});
+
+router.get('/postid/:id', async (req, res) => {
+    try {
+        // all post of username
+        const posts = await Post.findOne({_id: req.params.id}).sort({date: -1});        
+        
+        res.status(201).json({posts:posts, created: true});
     }catch(err){
         res.status(400).json({error: err});
     }

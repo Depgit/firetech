@@ -1,5 +1,5 @@
 import React ,{useEffect, useState} from 'react'
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import FullScreen from '../images/Full-screen.svg'
 import './grid.css'
 
@@ -12,6 +12,8 @@ export default function Grid(props) {
         props.data && setItemData([...props.data]);
     }, [props.data])
     
+    
+
     return (
         <>
             <div className='row m-1'>
@@ -23,7 +25,9 @@ export default function Grid(props) {
                                 <div className='card'>
                                     <img className='card-img-top' src={item.meme} alt='Card image cap' />
                                     <div className='card-body d-flex justify-content-between align-items-center'>
-                                        <p className='card-title'>{item.title}</p>
+                                       <Link to={"/profile/"+item.username} className="text-decoration-none text-dark " > <p className='card-title '
+                                        >{item.username}</p>
+                                        </Link>
                                         <img 
                                             src={FullScreen} 
                                             className='full-screen'

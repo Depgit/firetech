@@ -40,7 +40,7 @@ router.post('/login', async (req, res) => {
         const token = jwt.sign({ _id: user._id }, JWT_TOKEN);
         user.token = token;
         await user.save();
-        console.log("jnvkjs>> ",user);
+        
         res.json({token,user});
     }catch(err){
         res.status(400).json({error: err});
@@ -73,6 +73,20 @@ router.post('/profile/edit', varifyToken, async (req, res) => {
 });
 
 /**
+ * @route GET api/auth/profile/:username
+ */
+router.get('/profile/:username', async (req, res) => {
+    try {
+        const user = await User.findOne({ username: req.params.username });
+        console.log("user ",user);
+        res.status(200).json({user});
+    } catch (err) {
+        res.status(400).json({error: err});
+    }
+});
+
+
+/**
  * @route GET api/auth/Topranker
  */
 router.get("/Topranker", async(req, res) => {
@@ -80,7 +94,7 @@ router.get("/Topranker", async(req, res) => {
         .select({username: 1, rating: 1});
     const topContributers = await User.find().sort({contributions: -1}).limit(10)
         .select({username: 1, contributions: 1});
-    console.log("topranker>> ", topRanker);
+    
     res.json({topRanker, topContributers});
 })
 

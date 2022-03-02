@@ -27,7 +27,7 @@ export default function Home(props) {
             })
     }, [])
 
-    console.log("data", data);
+    
     
     return (
         <>

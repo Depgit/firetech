@@ -3,7 +3,6 @@ import { useParams } from 'react-router-dom';
 import { UserContext } from '../../App';
 import PostCard from '../PostCard/PostCard';
 
-const image = "https://i.ibb.co/wrZCs78/image.png";
 
 export default function Comment(props) {
     const [data, setdata] = React.useState([]);
@@ -14,11 +13,11 @@ export default function Comment(props) {
     
     const postId = useParams();
     
-    console.log("data", postId);
+    
 
 
     useEffect(() => {
-      fetch('/api/posts/post/' + postId.id, {
+      fetch('/api/posts/postid/' + postId.id, {
         method: "get",
         headers: {
             "x-access-token": localStorage.getItem('jwt')
@@ -26,7 +25,7 @@ export default function Comment(props) {
         }).then(res => res.json())
         .then(data => {
             console.log(data);
-            setPostData(data.post);
+            setPostData(data.posts);
         })
         
         fetch('/api/posts/comment/' + postId.id, {
@@ -36,7 +35,7 @@ export default function Comment(props) {
             }
         }).then(res => res.json())
             .then(data => {
-                console.log(data);
+                
                 setdata(data.comments);
             }
             )
@@ -46,7 +45,6 @@ export default function Comment(props) {
 
 
     
-    console.log("postData", postData);
     
 
     const handleSubmit = (e) => {
@@ -71,7 +69,7 @@ export default function Comment(props) {
         }
 
     }
-
+   
     return (
         <div style={{ marginTop: "60px" }}>
             <div className="w-50 m-auto" >

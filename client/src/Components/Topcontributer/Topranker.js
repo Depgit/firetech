@@ -5,7 +5,7 @@ const Toprater = () => {
     const [data, setData] = useState([]);
     const [toprankers, settoprankers] = useState([]);
     const { state, dispatch } = useContext(UserContext);
-    console.log(state);
+    
     useEffect(() => {
         fetch('api/auth/Topranker', {
             method: "get",
