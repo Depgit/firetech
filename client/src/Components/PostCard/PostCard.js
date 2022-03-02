@@ -9,7 +9,31 @@ import "./postcard.css";
 import { UserContext } from "../../App";
 
 const PostCard = (props) => {
-
+    const [data, setData] = React.useState(null);
+    const {state, dispatch} = useContext(UserContext);
+    useEffect(() => {
+        setData({...props.postData});
+    }, []);
+    const onlike = () => {
+        fetch('/api/posts/post/like/' + props.postData?._id, {
+            method: "put",
+            headers: {
+                "x-access-token": localStorage.getItem("jwt")
+            },
+        }).then(res => res.json())
+            .then(result => { 
+                let temp = data;
+                
+                console.log();
+                if (data.dislikes?.indexOf(data?.username) === -1){
+                    temp.likes.push(state?.username);
+                    setData({...temp});
+                }
+            }).catch(err => console.log(err));
+    }
+    const ondislike = () => {
+        console.log("dislike");
+    }
     return (
         <>
             <div className="card post-card">
