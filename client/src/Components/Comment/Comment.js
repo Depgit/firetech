@@ -73,7 +73,7 @@ export default function Comment(props) {
     return (
         <div style={{ marginTop: "60px" }}>
             <div className="w-50 m-auto" >
-                <PostCard image={postData?.meme} comment={"hello"} />
+                <PostCard postData = {postData} comment={"hello"} />
             </div>
             <div className="row my-4">
                 <h3 className='w-75 m-auto'>Comment</h3>

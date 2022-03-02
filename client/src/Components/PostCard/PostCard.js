@@ -1,23 +1,31 @@
-import React from "react";
+import React, { useEffect, useContext } from "react";
 import Image from "./images/postimg.jpg";
 import Like from "../images/like.svg";
+import GreenLike from "../images/Greenlike.svg";
 import Dislike from "../images/dislike.svg";
+import RedDislike from "../images/redDislike.svg";
 import Arl from "./images/arl.svg";
 import "./postcard.css";
+import { UserContext } from "../../App";
 
 const PostCard = (props) => {
+
     return (
         <>
             <div className="card post-card">
-                <img className="card-img-top post-img m-auto" src={props.image}></img>
+                <img className="card-img-top post-img m-auto" src={data?.meme}></img>
                 <div className="card-body">
                     <h6 className="card-title">Card title</h6>
                     <p>JavaScript creates an array by calling a specific
                         function on each element present in the parent array</p>
                     <div className="card-bm">
                         <div>
-                            <img className="h-50" src={Like} />
-                            <img className="h-50" src={Dislike} />
+                            { data && data.likes?.indexOf(data?.username) > -1 ? 
+                            <img className="like-img h-50" src={GreenLike}></img> :
+                            <img className="like-img h-50" onClick={onlike} src={Like}></img>}
+                            { data && data.dislikes?.indexOf(data?.username) > -1 ? 
+                            <img className="like-img h-50" src={RedDislike}></img> :
+                            <img className="like-img h-50" onClick={ondislike} src={Dislike}></img>}
                         </div>
                         {
                             !(props.comment) && 
