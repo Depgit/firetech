@@ -1,7 +1,7 @@
-export const initialState = null
+export const postinitialState = null
 
 
-export const reducer = (state, action)=>{
+export const postreducer = (state, action)=>{
     if(action.type==="POSTS"){
         return action.payload
     }

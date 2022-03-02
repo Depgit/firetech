@@ -10,17 +10,22 @@ const profile = 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'
 export default function Profile() {
     const { state, dispatch } = useContext(UserContext);
     const [pic, setPics] = useState(profile);
+    const [data, setdata] = useState([]);
     console.log(" my profile page running .... ");
+    
     useEffect(() => {
-        fetch('/mypost', {
+        fetch('/api/posts/mypost', {
+            method: 'GET',
             headers: {
+                "Content-Type": "application/json",
+                "applicaiton-type": "application/json",
                 "x-access-token": localStorage.getItem("jwt")
-            }
+            },
         }).then(res => res.json())
-            .then(result => {
-                console.log(result)
-                setPics(result.mypost)
-            })
+            .then(data => {
+                console.log(data);
+                setdata(data.posts);
+            })  
     }, [])
     
     return (
@@ -45,7 +50,7 @@ export default function Profile() {
             <div className='row'>
                 <div className='col-2'></div>
                 <div className='col-8'>
-                    {/* <Grid /> */}
+                    <Grid data={data}/>
                 </div>
                 <div className='col-2'></div>
             </div>
