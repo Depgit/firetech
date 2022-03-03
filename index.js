@@ -22,7 +22,14 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 //middleware
 app.use(express.json());
-app.use(helmet());
+app.use(
+    helmet.contentSecurityPolicy({
+      useDefaults: true,
+      directives: {
+        "img-src": ["'self'", "https: data:"]
+      }
+    })
+  )
 app.use(morgan('common'));
 app.use(cors());
 
