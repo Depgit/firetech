@@ -14,11 +14,11 @@ const PostCard = (props) => {
 
     useEffect(() => {
         setData({...props.postData});
-    }, []);
+    }, [props.postData]);
 
     const onlike = (e) => {
         console.log("like clicked",e);
-        fetch('/api/posts/post/like/' + data?._id, {
+        fetch('/api/posts/post/like/' + props.postData?._id, {
             method: "put",
             headers: {
                 "x-access-token": localStorage.getItem("jwt")
@@ -36,7 +36,7 @@ const PostCard = (props) => {
     }
     const ondislike = (e) => {
         console.log("dislike clicked",e);
-        fetch('/api/posts/post/dislike/' + data?._id, {
+        fetch('/api/posts/post/dislike/' + props.postData?._id, {
             method: "put",
             headers: {
                 "x-access-token": localStorage.getItem("jwt")
