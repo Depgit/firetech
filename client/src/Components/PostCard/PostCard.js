@@ -17,7 +17,6 @@ const PostCard = (props) => {
     }, [props.postData]);
 
     const onlike = (e) => {
-        console.log("like clicked",e);
         fetch('/api/posts/post/like/' + props.postData?._id, {
             method: "put",
             headers: {
@@ -35,7 +34,6 @@ const PostCard = (props) => {
             }).catch(err => console.log(err));
     }
     const ondislike = (e) => {
-        console.log("dislike clicked",e);
         fetch('/api/posts/post/dislike/' + props.postData?._id, {
             method: "put",
             headers: {
