@@ -11,29 +11,48 @@ import { UserContext } from "../../App";
 const PostCard = (props) => {
     const [data, setData] = React.useState(null);
     const {state, dispatch} = useContext(UserContext);
+
     useEffect(() => {
         setData({...props.postData});
     }, []);
-    const onlike = () => {
-        fetch('/api/posts/post/like/' + props.postData?._id, {
+
+    const onlike = (e) => {
+        console.log("like clicked",e);
+        fetch('/api/posts/post/like/' + data?._id, {
             method: "put",
             headers: {
                 "x-access-token": localStorage.getItem("jwt")
             },
         }).then(res => res.json())
             .then(result => { 
-                let temp = data;
-                
-                console.log();
-                if (data.dislikes?.indexOf(data?.username) === -1){
-                    temp.likes.push(state?.username);
-                    setData({...temp});
+                if(result.message){
+                    let tempData = {...data};
+                    tempData.likes.push(state.username);
+                    setData(tempData);
+                }else{
+                    alert(result.error);
                 }
             }).catch(err => console.log(err));
     }
-    const ondislike = () => {
-        console.log("dislike");
+    const ondislike = (e) => {
+        console.log("dislike clicked",e);
+        fetch('/api/posts/post/dislike/' + data?._id, {
+            method: "put",
+            headers: {
+                "x-access-token": localStorage.getItem("jwt")
+            },
+        }).then(res => res.json())
+            .then(result => { 
+                if(result.message){
+                    let tempData = {...data};
+                    tempData.dislikes.push(state.username);
+                    setData(tempData);
+                }else{
+                    alert(result.error);
+                }
+            }).catch(err => console.log(err));
     }
+
     return (
         <>
             <div className="card post-card">
@@ -44,10 +63,10 @@ const PostCard = (props) => {
                         function on each element present in the parent array</p>
                     <div className="card-bm">
                         <div>
-                            { data && data.likes?.indexOf(data?.username) > -1 ? 
+                            { data && data.likes?.indexOf(state?.username) > -1 ? 
                             <img className="like-img h-50" src={GreenLike}></img> :
                             <img className="like-img h-50" onClick={onlike} src={Like}></img>}
-                            { data && data.dislikes?.indexOf(data?.username) > -1 ? 
+                            { data && data.dislikes?.indexOf(state?.username) > -1 ? 
                             <img className="like-img h-50" src={RedDislike}></img> :
                             <img className="like-img h-50" onClick={ondislike} src={Dislike}></img>}
                         </div>

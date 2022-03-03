@@ -123,7 +123,7 @@ router.put('/post/like/:id', varifyToken, async (req, res) => {
     try{
         const checkDislike  = await Post.findById(req.params.id).select({ dislikes: 1 });
         if(checkDislike.dislikes.includes(req.user.username)){
-            res.status(400).json({ message: 'You already disliked this post' });
+            res.status(400).json({ error: 'You already disliked this post' });
         }else{
             await Post.updateOne({ _id: req.params.id },
                 {
@@ -131,6 +131,7 @@ router.put('/post/like/:id', varifyToken, async (req, res) => {
                 }, { useFindAndModify: false });
             await User.updateOne({ username: req.user.username },
                 { $inc: { rating: 1 } }, { useFindAndModify: false });
+            res.status(200).json({ message: 'Liked Post' });
         }
     }catch(err){
         res.status(400).json({ error: err });
@@ -152,7 +153,7 @@ router.put('/post/dislike/:id', varifyToken, async (req, res) => {
     try {
         const checkLike = await Post.findById(req.params.id).select({ likes: 1 });
         if(checkLike.likes.includes(req.user.username)){
-            res.status(400).json({ message: 'You already liked this post' });
+            res.status(400).json({ error: 'You already liked this post' });
         }
         else{
             await Post.updateOne({ _id: req.params.id },
@@ -161,10 +162,11 @@ router.put('/post/dislike/:id', varifyToken, async (req, res) => {
                 }, { useFindAndModify: false });
             await User.updateOne({ username: req.user.username },
                 { $inc: { rating: -1 } }, { useFindAndModify: false });
+            res.status(200).json({ message: 'Disliked Post' });
         }
     }
     catch {
-        res.status(400).json({ error: err, message: "got an error" });
+        res.status(400).json({ error: err});
     }
 })
 
