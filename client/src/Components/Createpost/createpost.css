@@ -1,0 +1,12 @@
+.m-up{
+    margin-top: 60px;
+}
+
+@media screen and (max-width: 768px) {
+    .col-6 {
+        width: 100vw;
+    }
+    .m-up{
+        margin-top: 65px;
+    }
+}

@@ -25,10 +25,11 @@ export default function NevLeft(props) {
             </div>
             <div className="desktop">
                 <div className="d-flex">
-                    <Link to="/"> <a href='#' className="text-decoration-none text-dark"  ><>Home</></a> </Link>
-                    <Link to={"/profile/"+state?.username}> <a href='#' className="text-decoration-none mx-2 text-dark"  ><>Profile</></a> </Link>
-                    <Link to="/contests"> <a href='#' className="text-decoration-none text-dark"  ><>Contests</></a> </Link>
-                    <Link to="/rankers"> <a href='#' className="text-decoration-none mx-2 text-dark"  ><>Rankers</></a> </Link>
+                    <Link to="/"> <a href='#' className="text-decoration-none text-dark me-2"  ><>Home</></a> </Link>
+                    <Link to={"/profile/"+state?.username}> <a href='#' className="text-decoration-none me-2 text-dark"  ><>Profile</></a> </Link>
+                    <Link to="/contests"> <a href='#' className="text-decoration-none text-dark me-2"  ><>Contests</></a> </Link>
+                    <Link to="/rankers"> <a href='#' className="text-decoration-none me-2 text-dark"  ><>Rankers</></a> </Link>
+                    <Link to="/createpost"><a href='#' className="text-decoration-none me-2 text-dark"  ><>CreatePost</></a></Link>
                 </div>
             </div>
         </div>

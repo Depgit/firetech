@@ -109,14 +109,23 @@ router.get('/comment/:id', async (req, res) => {
 });
 
 router.put('/comment/like/:id', varifyToken, async (req, res) => {
-    await Comment.updateOne({ _id: req.params.id },
-        {
-            $addToSet: { likes: req.user.username }
-        }, { useFindAndModify: false });
-    const result = await Comment.findById(req.params.id).select({ username: 1 });
-    await User.updateOne({ username: result.username },
-        { $inc: { rating: 1 } }, { useFindAndModify: false });
-    res.status(200).json({ message: 'Liked Comment' });
+    try{
+        const checkdisLike = await Comment.findOne({ _id: req.params.id, dislikes: { $in: [req.user.username] } });
+        if (checkdisLike) {
+            return res.status(400).json({ error: 'You already dislike this comment' });
+        }else{
+            await Comment.updateOne({ _id: req.params.id },
+                {
+                    $addToSet: { likes: req.user.username }
+                }, { useFindAndModify: false });
+            await User.updateOne({ username: req.user.username },
+                { $inc: { rating: 1 } }, { useFindAndModify: false });
+            res.status(200).json({ message: 'liked Comment' });
+        }
+    }
+    catch(err){
+        res.status(400).json({ error: err });
+    }
 })
 
 router.put('/post/like/:id', varifyToken, async (req, res) => {
@@ -138,15 +147,24 @@ router.put('/post/like/:id', varifyToken, async (req, res) => {
     }
 });
 
-router.get('/comment/dislike/:id', varifyToken, async (req, res) => {
-    await Comment.updateOne({ _id: req.params.id },
-        {
-            $push: { dislikes: req.user.username }
-        }, { useFindAndModify: false });
-    const result = await Comment.findById(req.params.id).select({ username: 1 });
-    await User.updateOne({ username: result.username },
-        { $inc: { rating: -1 } }, { useFindAndModify: false });
-    res.status(200).json({ message: 'Disliked Comment' });
+router.put('/comment/dislike/:id', varifyToken, async (req, res) => {
+    try{
+        const checkLike = await Comment.findOne({ _id: req.params.id, likes: { $in: [req.user.username] } });
+        if (checkLike) {
+            return res.status(400).json({ error: 'You already like this comment' });
+        }else{
+            await Comment.updateOne({ _id: req.params.id },
+                {
+                    $addToSet: { dislikes: req.user.username }
+                }, { useFindAndModify: false });
+            await User.updateOne({ username: req.user.username },
+                { $inc: { rating: -1 } }, { useFindAndModify: false });
+            res.status(200).json({ message: 'disliked Comment' });
+        }
+    }
+    catch(err){
+        res.status(400).json({ error: err });
+    }
 })
 
 router.put('/post/dislike/:id', varifyToken, async (req, res) => {
@@ -165,7 +183,7 @@ router.put('/post/dislike/:id', varifyToken, async (req, res) => {
             res.status(200).json({ message: 'Disliked Post' });
         }
     }
-    catch {
+    catch(err) {
         res.status(400).json({ error: err});
     }
 })

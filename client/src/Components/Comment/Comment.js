@@ -9,7 +9,7 @@ import RedDislike from "../images/redDislike.svg";
 
 
 export default function Comment(props) {
-    const [data, setdata] = React.useState([]);
+    const [data, setData] = React.useState([]);
     const [comment, setcomment] = React.useState('');
     const { state, dispatch } = useContext(UserContext);
     const [postData, setPostData] = React.useState(null);
@@ -17,8 +17,6 @@ export default function Comment(props) {
     
     const postId = useParams();
     
-    
-
 
     useEffect(() => {
       fetch('/api/posts/postid/' + postId.id, {
@@ -40,19 +38,20 @@ export default function Comment(props) {
         }).then(res => res.json())
             .then(data => {
                 
-                setdata(data.comments);
+                setData(data.comments);
             }
             )
 
 
     }, [])
 
-    console.log(data);
-    
 
     const handleSubmit = (e) => {
         if (e.key === 'Enter') {
-            setdata([...data, { username: state?.username, comment: e.target.value }]);
+            setData([
+                ...data, 
+                { username: state?.username, comment: e.target.value }
+            ]);
             setcomment('');
             fetch('/api/posts/comment/create/' +postId.id, {
                 method: 'POST',
@@ -72,11 +71,45 @@ export default function Comment(props) {
         }
 
     }
-    const onlike = (e) => {
-        console.log("liked");
+
+    
+
+    const onlike = (index) => {
+        fetch('/api/posts/comment/like/' + data[index]?._id, {
+            method: "put",
+            headers: {
+                "x-access-token": localStorage.getItem("jwt")
+            },
+            body: JSON.stringify({
+                username:   data[index]?.username,
+            })
+        }).then(res => res.json())
+            .then(result => { 
+                if(result.message){
+                    let tempData = [...data];
+                    tempData[index].likes.push(state.username);
+                    setData(tempData);
+                }else{
+                    alert(result.error);
+                }
+            }).catch(err => console.log(err));
     }
-    const ondislike = (e) => {
-        console.log("disliked");
+    const ondislike = (index) => {
+        fetch('/api/posts/comment/dislike/' + data[index]?._id, {
+            method: "put",
+            headers: {
+                "x-access-token": localStorage.getItem("jwt")
+            },
+        }).then(res => res.json())
+            .then(result => { 
+                if(result.message){
+                    let tempData = [...data];
+                    tempData[index].dislikes.push(state.username);
+                    setData(tempData);
+                }else{
+                    alert(result.error);
+                }
+            }).catch(err => console.log(err));
     }
     return (
         <div style={{ marginTop: "60px" }}>
@@ -92,10 +125,9 @@ export default function Comment(props) {
                 />
             </div>
             {
-                data.map(item => {
+                data.map((item,index) => {
                     return (
                         <div className="row w-75 m-auto">
-                            {/* <div className='col-2'></div> */}
                             <div className="col-12">
                                 <div className="card">
                                     <div className="card-body d-flex justify-content-between align-items-center">
@@ -104,17 +136,21 @@ export default function Comment(props) {
                                             <p className="card-text">{item.comment}</p>
                                         </div>
                                         <div>
-                                            { data && data.likes?.indexOf(state?.username) > -1 ? 
+                                            {console.log("tem idex check", item,index)}
+                                            { item && item.likes?.includes(state?.username) ? 
                                             <img className="like-img h-50" src={GreenLike}></img> :
-                                            <img className="like-img h-50" onClick={onlike} src={Like}></img>}
-                                            { data && data.dislikes?.indexOf(state?.username) > -1 ? 
+                                            <img className="like-img h-50" onClick={(e)=>{
+                                                onlike(index);
+                                            }} src={Like}></img>}
+                                            { item && item.dislikes?.includes(state?.username) ? 
                                             <img className="like-img h-50" src={RedDislike}></img> :
-                                            <img className="like-img h-50" onClick={ondislike} src={Dislike}></img>}
+                                            <img className="like-img h-50" onClick={(e)=>{
+                                                ondislike(index);
+                                            }} src={Dislike}></img>}
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            {/* <div className='col-2'></div> */}
                         </div>
                     )
                 })
