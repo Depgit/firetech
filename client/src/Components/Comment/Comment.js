@@ -2,6 +2,10 @@ import React, { useContext, useEffect } from 'react'
 import { useParams } from 'react-router-dom';
 import { UserContext } from '../../App';
 import PostCard from '../PostCard/PostCard';
+import Like from "../images/like.svg";
+import Dislike from "../images/dislike.svg";
+import GreenLike from "../images/Greenlike.svg";
+import RedDislike from "../images/redDislike.svg";
 
 
 export default function Comment(props) {
@@ -43,8 +47,7 @@ export default function Comment(props) {
 
     }, [])
 
-
-    
+    console.log(data);
     
 
     const handleSubmit = (e) => {
@@ -69,7 +72,12 @@ export default function Comment(props) {
         }
 
     }
-   
+    const onlike = (e) => {
+        console.log("liked");
+    }
+    const ondislike = (e) => {
+        console.log("disliked");
+    }
     return (
         <div style={{ marginTop: "60px" }}>
             <div className="w-50 m-auto" >
@@ -90,10 +98,19 @@ export default function Comment(props) {
                             {/* <div className='col-2'></div> */}
                             <div className="col-12">
                                 <div className="card">
-                                    <div className="card-body">
-                                       
-                                        <h5 className="card-title">{item.username}</h5>
-                                        <p className="card-text">{item.comment}</p>
+                                    <div className="card-body d-flex justify-content-between align-items-center">
+                                        <div>
+                                            <h5 className="card-title">{item.username}</h5>
+                                            <p className="card-text">{item.comment}</p>
+                                        </div>
+                                        <div>
+                                            { data && data.likes?.indexOf(state?.username) > -1 ? 
+                                            <img className="like-img h-50" src={GreenLike}></img> :
+                                            <img className="like-img h-50" onClick={onlike} src={Like}></img>}
+                                            { data && data.dislikes?.indexOf(state?.username) > -1 ? 
+                                            <img className="like-img h-50" src={RedDislike}></img> :
+                                            <img className="like-img h-50" onClick={ondislike} src={Dislike}></img>}
+                                        </div>
                                     </div>
                                 </div>
                             </div>
