@@ -20,7 +20,6 @@ export default function Createpost() {
                 method: "post",
                 headers: {
                     "Content-Type": "application/json",
-                    "applicaiton-type": "application/json",
                     "x-access-token": localStorage.getItem("jwt")
                 },
                 body: JSON.stringify({
@@ -35,7 +34,7 @@ export default function Createpost() {
                     } else {
                         console.log(data);
                         alert('created Successfully');
-                        dispatch({ type: "POSTS", payload: data.post })
+                        // dispatch({ type: "POSTS", payload: data.post })
                         history('/');
                     }
                 }).catch(err => {
@@ -44,8 +43,7 @@ export default function Createpost() {
         }
     }, [url])
 
-    const submitHandler = (e) => {
-        e.preventDefault();
+    const submitHandler = (e) => {      
         const data = new FormData()
         data.append("file", image)
         data.append("upload_preset", "drpzet")
@@ -80,7 +78,7 @@ export default function Createpost() {
                     />
                     <div>
                         <button className='btn btn-primary mt-2'
-                            onClick={submitHandler}
+                            onClick={() => submitHandler()}
                         >Submit</button>
                     </div>
                 </div>
