@@ -22,7 +22,21 @@ mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopol
 
 //middleware
 app.use(express.json());
-app.use(hamlet({ contentSecurityPolicy: false, }))
+app.use(
+  helmet.contentSecurityPolicy({
+        directives: {
+            "default-src":[ "'self'" ],
+            "base-uri":[ "'self'" ],
+            "font-src":[ "'self'", "https:", "data:" ],
+            "frame-ancestors":[ "'self'" ],
+            "img-src":[ "'self'", "data:", "http://res.cloudinary.com"],
+            "script-src":[ "'self'" ],
+            "script-src-attr":[ "'none'" ],
+            "style-src":[ "'self'", "https:", "'unsafe-inline'" ],
+        }
+    })
+)
+
 app.use(morgan('common'));
 app.use(cors());
 
