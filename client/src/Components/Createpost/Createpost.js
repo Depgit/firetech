@@ -48,7 +48,7 @@ export default function Createpost() {
         e.preventDefault();
         const data = new FormData()
         data.append("file", image)
-        data.append("upload_preset", "depcraze")
+        data.append("upload_preset", "drpzet")
         data.append("cloud_name", "depimage")
         fetch("https://api.cloudinary.com/v1_1/depimage/image/upload", {
             method: "post",
