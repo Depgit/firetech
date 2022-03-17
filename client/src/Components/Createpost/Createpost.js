@@ -43,7 +43,7 @@ export default function Createpost() {
         }
     }, [url])
 
-    const submitHandler = (e) => {      
+    const submitHandler = () => {      
         const data = new FormData()
         data.append("file", image)
         data.append("upload_preset", "drpzet")
