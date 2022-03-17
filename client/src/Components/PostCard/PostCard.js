@@ -54,7 +54,7 @@ const PostCard = (props) => {
     return (
         <>
             <div className="card post-card">
-                <img className="card-img-top post-img m-auto" src={data?.meme}></img>
+                <img className="card-img-top post-img" src={data?.meme}></img>
                 <div className="card-body">
                     <h6 className="card-title">Card title</h6>
                     <p>JavaScript creates an array by calling a specific

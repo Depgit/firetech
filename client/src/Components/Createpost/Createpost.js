@@ -12,10 +12,25 @@ export default function Createpost() {
     const { state, dispatch } = useContext(UserContext);
     const history = useNavigate('')
 
+    const ConverBase64 = (file) => {
+        return new Promise ((resolve, reject) => {
+        const fileReader = new FileReader();
 
+        fileReader.readAsDataURL(file);
+
+        fileReader.onload = () => {
+            resolve(fileReader.result);
+        };
+
+        fileReader.onerror = (error) => {
+            reject(error);
+        };
+    });
+    }
 
     useEffect(() => {
         if (url) {
+            console.log("url >> ", url);
             fetch('/api/posts/createpost', {
                 method: "post",
                 headers: {
@@ -44,19 +59,20 @@ export default function Createpost() {
     }, [url])
 
     const submitHandler = () => {      
-        const data = new FormData()
-        data.append("file", image)
-        data.append("upload_preset", "drpzet")
-        data.append("cloud_name", "depimage")
-        fetch("https://api.cloudinary.com/v1_1/depimage/image/upload", {
-            method: "post",
-            body: data
-        })
-            .then(res => res.json())
-            .then(data => {
-                seturl(data.url)
-            })
-            .catch(err => console.log(err))
+        // const data = new FormData()
+        // data.append("file", image)
+        // data.append("upload_preset", "drpzet")
+        // data.append("cloud_name", "depimage")
+        // fetch("https://api.cloudinary.com/v1_1/depimage/image/upload", {
+        //     method: "post",
+        //     body: data
+        // })
+        //     .then(res => res.json())
+        //     .then(data => {
+        //         seturl(data.url)
+        //     })
+        //     .catch(err => console.log(err))
+        seturl(image);
     }
 
 
@@ -70,7 +86,7 @@ export default function Createpost() {
                         onChange={(e) => settitle(e.target.value)}
                     />
                     <div className="form-control h-100">
-                        <input type="file" onChange={(e) => setImage(e.target.files[0])} />
+                        <input type="file" onChange={async (e) =>  setImage( await ConverBase64(e.target.files[0]))} />
                     </div>
                     <input type="text" className="form-control" placeholder="Enter the description"
                         value={description}

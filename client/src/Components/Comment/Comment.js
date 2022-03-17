@@ -45,8 +45,11 @@ export default function Comment(props) {
 
     }, [])
 
-
+// " vivek               "
     const handleSubmit = (e) => {
+        let temp = e.target.value;
+        temp = temp.trim();
+        if (temp == "") return ;
         if (e.key === 'Enter') {
             setData([
                 ...data, 
@@ -60,7 +63,7 @@ export default function Comment(props) {
                     "x-access-token": localStorage.getItem('jwt'),
                 },
                 body: JSON.stringify({
-                    comment: e.target.value,
+                    comment: temp,
                 })
             })
                 .then(res => res.json())

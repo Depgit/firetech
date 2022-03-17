@@ -21,6 +21,9 @@
     border-radius: 5px;
     color: rgb(255, 255, 255)
 }
+.w-50{
+    width: 75% !important;
+}
 
 @media screen and (max-width: 768px) {
     .post-img {
@@ -28,6 +31,12 @@
     }
     .h-50{
         height: 50% !important;
+    }
+    .w-50{
+        width: 100% !important;
+    }
+    .m-auto{
+        margin: 5px;
     }
     .mobile{
         display: none;
