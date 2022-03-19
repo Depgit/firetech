@@ -57,13 +57,13 @@ const PostCard = (props) => {
                 <img className="card-img-top post-img" src={data?.meme}></img>
                 <div className="card-body">
                     <h6 className="card-title">{data?.username}</h6>
-                    <p>JavaScript creates an array by calling a specific
-                        function on each element present in the parent array</p>
+                    <p>Description to be added</p>
                     <div className="card-bm">
                         <div>
                             { data && data.likes?.indexOf(state?.username) > -1 ? 
                             <img className="like-img h-50" src={GreenLike}></img> :
                             <img className="like-img h-50" onClick={onlike} src={Like}></img>}
+                            {data && data.likes?.length - data.dislikes?.length}
                             { data && data.dislikes?.indexOf(state?.username) > -1 ? 
                             <img className="like-img h-50" src={RedDislike}></img> :
                             <img className="like-img h-50" onClick={ondislike} src={Dislike}></img>}

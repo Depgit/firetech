@@ -5,8 +5,9 @@ import Grid from '../Grid/Grid'
 import Topcontributer from '../Topcontributer/Topcontributer'
 import Topranker from '../Topcontributer/Topranker'
 import { useParams } from 'react-router-dom'
+import {ConverBase64} from '../../utils/convertBase64'
 
-const profilepic = 'https://images.unsplash.com/photo-1551963831-b3b1ca40c98e'
+const profilepic = 'http://res.cloudinary.com/depimage/image/upload/w_300,h_200,c_scale/v1647680541/l1njxluwrn2k8xwuizko.jpg'
 
 export default function Profile() {
     const { state, dispatch } = useContext(UserContext);
@@ -44,6 +45,24 @@ export default function Profile() {
             })
     }, [profileUser])
 
+    const submitHandler = (e) => {
+        fetch('/api/posts/profilepicupdate/'+profile._id , {
+            method: 'put',
+            headers: {
+                "Content-Type": "application/json",
+                "x-access-token": localStorage.getItem("jwt")
+            },body: JSON.stringify({
+                url:  pic
+            })
+        }).then(res => res.json())
+        .then(data => {
+            if(data.error){
+                alert(data.error);
+            }else{
+                alert(data.message);
+            }
+        })
+    }
     
     
     return (
@@ -58,7 +77,20 @@ export default function Profile() {
 
                 </div>
                 <div className='col-4'>
-                    <img src={pic} alt="profile" className="pr-profile" />
+                    <div>
+                        <img src={pic} alt="profile" className="pr-profile" />
+                    </div>
+                    <div>
+                        {
+                            state?.username===profile?.username?
+                            <>
+                                <input type="file" onChange={async (e) => setPics(await ConverBase64(e.target.files[0]))} />
+                                <input type="submit" onClick={submitHandler} />
+                            </>
+                            :
+                            ''
+                        }
+                    </div>
                 </div>
                 <div className='col-2'></div>
             </div>

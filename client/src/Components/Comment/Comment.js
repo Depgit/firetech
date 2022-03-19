@@ -145,6 +145,7 @@ export default function Comment(props) {
                                             <img className="like-img h-50" onClick={(e)=>{
                                                 onlike(index);
                                             }} src={Like}></img>}
+                                            {item && item.likes?.length - item.dislikes?.length}
                                             { item && item.dislikes?.includes(state?.username) ? 
                                             <img className="like-img h-50" src={RedDislike}></img> :
                                             <img className="like-img h-50" onClick={(e)=>{

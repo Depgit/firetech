@@ -6,7 +6,7 @@ import Grid from '../Grid/Grid';
 import { useNavigate } from 'react-router-dom'
 
 
-export default function Home(props) {
+export default function Home() {
     const { state, dispatch } = useContext(UserContext);
     const { post, dispatchPost } = useContext(PostContext);
     const [data, setData] = useState([]);

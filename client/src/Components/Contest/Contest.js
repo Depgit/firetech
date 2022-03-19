@@ -1,39 +1,35 @@
-import React, { useEffect, useState } from 'react'
-import FullScreen from '../images/Full-screen.svg'
-import Like from "../images/like.svg";
-import Dislike from "../images/dislike.svg";
+import React, { useContext, useEffect, useState } from 'react'
 import './contest.css'
 import Grid from '../Grid/Grid';
+import { ContestContext } from '../../App';
 
 
 
 export default function Contest(props) {
     const [itemData, setItemData] = useState([]);
+    const { contest, dispatchContest } = useContext(ContestContext);
 
     useEffect(() => {
-        fetch('/api/contest/data', {
-            method: 'GET',
-            headers: {
-                'Content-Type': 'application/json',
-                'x-access-token': localStorage.getItem('jwt')
-            }
-        }).then(res => res.json())
-            .then(result => {
-                console.log(result)
-                setItemData(result.data)
-            })
+        if (contest.length === 0) {
+            fetch('/api/contest/data', {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'x-access-token': localStorage.getItem('jwt')
+                }
+            }).then(res => res.json())
+                .then(result => {
+                    result.data.map((res) => {
+                        dispatchContest({ type: "CONTEST", payload: res })
+                    })
+                })
+        }
     }, [])
 
 
     return (
-        <>
-            <div className="alert alert-success p-2 ct-label" role="alert" >
-                <strong> Weekly Contest {Date.now()}</strong>
-            </div>
-            <div className='row m-0'>
-                <div className='col-2'></div>
-                <Grid data={itemData} />
-            </div>
-        </>
+        <div className='row p-top m-1'>
+            {contest.length > 0 ? <Grid data={contest} /> : <h1>...Loading</h1>}
+        </div>
     )
 }

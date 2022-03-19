@@ -37,9 +37,6 @@ router.post('/createpost', varifyToken, async (req, res) => {
     }
 });
 
-// router.delete('/deleteAllPost', varifyToken, async (req,res) => {
-//     Post.findOneAndDelete()
-// })
 
 /**
  * @route GET api/posts/allposts
@@ -221,6 +218,25 @@ router.delete("/post/delete/:id", varifyToken, async (req, res) => {
         res.status(400).json({ error: err, message: "got an error" });
     }
 });
+
+router.put("/profilepicupdate/:id" , varifyToken , async (req,res) => {
+    try {
+        const user = await User.findById({_id: req.params.id});
+        if(!user|| req.body.length===0){
+            res.status(400).json({error: "no file submited"});
+        }
+        const memeUrl = req.body.url;
+        const uploadResponse = await cloudinary.uploader.upload(memeUrl, {
+            upload_preset: 'drpzet'
+        })
+        let urlImage = uploadResponse.url;
+
+        await User.updateOne({username: req.user.username},{ avatar : urlImage },{ useFindAndModify: false });
+        res.status(200).json( {message: "Updated successfully"})
+    } catch (error) {
+        res.status(400).json({ error : error })
+    }
+})
 
 
 
