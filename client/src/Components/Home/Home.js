@@ -5,6 +5,11 @@ import PostCard from '../PostCard/PostCard';
 import Grid from '../Grid/Grid';
 import { useNavigate } from 'react-router-dom'
 
+let inittial = {
+    limit: 10,
+    skip: 0,
+    pagecount: 1
+}
 
 export default function Home() {
     const { state, dispatch } = useContext(UserContext);
@@ -13,6 +18,7 @@ export default function Home() {
     const [check, setCheck] = useState(true);
     const history = useNavigate();
     const url = window.location.href;
+    
 
     console.log("home page running .... ", post);
     useEffect(() => {
@@ -21,7 +27,9 @@ export default function Home() {
             fetch('api/posts/allposts', {
                 method: "get",
                 headers: {
-                    "x-access-token": localStorage.getItem('jwt')
+                    "x-access-token": localStorage.getItem('jwt'),
+                    limit: 5,
+                    skip: 0
                 }
             }).then(res => res.json())
                 .then(data => {

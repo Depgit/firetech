@@ -1,5 +1,5 @@
 import React from 'react'
-import Topcontributer from './Topranker'
+import Topcontributer from './Topcontributer'
 import Toprater from './Topranker'
 
 export default function ShowToper() {

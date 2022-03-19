@@ -44,7 +44,9 @@ router.post('/createpost', varifyToken, async (req, res) => {
  */
 router.get('/allposts', async (req, res) => {
     try {
-        const posts = await Post.find().sort({ date: -1 });
+        let _limit = req.headers.limit;
+        let _offset = req.headers.skip;
+        const posts = await Post.find().sort({ date: -1 }).limit(_limit).skip(_offset);
         res.status(201).json({ posts: posts, created: true });
     } catch (err) {
         res.status(400).json({ error: err });

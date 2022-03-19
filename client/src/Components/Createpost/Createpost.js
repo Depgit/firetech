@@ -15,19 +15,6 @@ export default function Createpost() {
     const history = useNavigate('')
     const [upload, setUpload] = useState(true);
 
-    // const ConverBase64 = (file) => {
-    //     return new Promise((resolve, reject) => {
-    //         const fileReader = new FileReader();
-    //         fileReader.readAsDataURL(file);
-    //         fileReader.onload = () => {
-    //             resolve(fileReader.result);
-    //         };
-    //         fileReader.onerror = (error) => {
-    //             reject(error);
-    //         };
-    //     });
-    // }
-
     useEffect(() => {
         if (url) {
             // console.log("url >> ", url);
