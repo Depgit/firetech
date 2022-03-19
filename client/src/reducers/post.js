@@ -1,10 +1,10 @@
-export const postinitialState = null
+export const postinitialState = []
 
+export const postreducer = (post, action)=>{
+    console.log("Post reducer page running .... ", post,action);
 
-export const postreducer = (state, action)=>{
     if(action.type==="POSTS"){
-        return action.payload
+        return [...post, action.payload]
     }
-    if(action.type==="CLEAR"){return null}
-    return state
+    return post
 }

@@ -3,24 +3,43 @@ const varifyToken = require('../middleware/auth');
 const User = require('../models/User');
 const Post = require('../models/Post');
 const Comment = require('../models/Comment');
+const { cloudinary } = require('../middleware/cloudinary')
 
 /**
  * @route POST api/posts/createpost
  * @example https://i.ibb.co/wrZCs78/image.png
  */
 router.post('/createpost', varifyToken, async (req, res) => {
-    const post = await new Post({
-        username: req.user.username,
-        title: req.body.title,
-        meme: req.body.url,
-    });
+
     try {
+        // console.log("uplaod image >>> ",req.body.url);
+        const memeUrl = req.body.url;
+        const uploadResponse = await cloudinary.uploader.upload(memeUrl, {
+            upload_preset: 'drpzet'
+        })
+        
+        let urlImage = uploadResponse.url;
+        
+        let tmp = urlImage.split("upload");
+        urlImage = tmp[0] + "upload/w_300,h_200,c_scale"+tmp[1];
+        
+        const post = await new Post({
+            username: req.user.username,
+            title: req.body.title,
+            meme: urlImage,
+        });
+        
+        console.log("post >>> ",post);
         await post.save();
         res.status(201).json({ post: post, created: true });
     } catch (err) {
         res.status(400).json({ error: err, created: false });
     }
 });
+
+// router.delete('/deleteAllPost', varifyToken, async (req,res) => {
+//     Post.findOneAndDelete()
+// })
 
 /**
  * @route GET api/posts/allposts
@@ -109,60 +128,64 @@ router.get('/comment/:id', async (req, res) => {
 });
 
 router.put('/comment/like/:id', varifyToken, async (req, res) => {
-    try{
+    try {
         const checkdisLike = await Comment.findOne({ _id: req.params.id, dislikes: { $in: [req.user.username] } });
+        const likeUser = await Comment.findOne({ _id: req.params.id});
+        console.log("like chek >> ",likeUser);
         if (checkdisLike) {
             return res.status(400).json({ error: 'You already dislike this comment' });
-        }else{
+        } else {
             await Comment.updateOne({ _id: req.params.id },
                 {
                     $addToSet: { likes: req.user.username }
                 }, { useFindAndModify: false });
-            await User.updateOne({ username: req.user.username },
+            await User.updateOne({ username: likeUser.username },
                 { $inc: { rating: 1 } }, { useFindAndModify: false });
             res.status(200).json({ message: 'liked Comment' });
         }
     }
-    catch(err){
+    catch (err) {
         res.status(400).json({ error: err });
     }
 })
 
 router.put('/post/like/:id', varifyToken, async (req, res) => {
-    try{
-        const checkDislike  = await Post.findById(req.params.id).select({ dislikes: 1 });
-        if(checkDislike.dislikes.includes(req.user.username)){
+    try {
+        const checkDislike = await Post.findById(req.params.id).select({ dislikes: 1 });
+        const likeUser = await Post.findById(req.params.id);
+        if (checkDislike.dislikes.includes(req.user.username)) {
             res.status(400).json({ error: 'You already disliked this post' });
-        }else{
+        } else {
             await Post.updateOne({ _id: req.params.id },
                 {
                     $addToSet: { likes: req.user.username }
                 }, { useFindAndModify: false });
-            await User.updateOne({ username: req.user.username },
+            await User.updateOne({ username: likeUser.username },
                 { $inc: { rating: 1 } }, { useFindAndModify: false });
             res.status(200).json({ message: 'Liked Post' });
         }
-    }catch(err){
+    } catch (err) {
         res.status(400).json({ error: err });
     }
 });
 
 router.put('/comment/dislike/:id', varifyToken, async (req, res) => {
-    try{
+    try {
         const checkLike = await Comment.findOne({ _id: req.params.id, likes: { $in: [req.user.username] } });
+        const dislikeUser = await Comment.findOne({ _id: req.params.id });
         if (checkLike) {
             return res.status(400).json({ error: 'You already like this comment' });
-        }else{
+        } else {
             await Comment.updateOne({ _id: req.params.id },
                 {
                     $addToSet: { dislikes: req.user.username }
                 }, { useFindAndModify: false });
-            await User.updateOne({ username: req.user.username },
+            await User.updateOne({ username: dislikeUser.username },
                 { $inc: { rating: -1 } }, { useFindAndModify: false });
             res.status(200).json({ message: 'disliked Comment' });
         }
     }
-    catch(err){
+    catch (err) {
         res.status(400).json({ error: err });
     }
 })
@@ -170,21 +193,22 @@ router.put('/comment/dislike/:id', varifyToken, async (req, res) => {
 router.put('/post/dislike/:id', varifyToken, async (req, res) => {
     try {
         const checkLike = await Post.findById(req.params.id).select({ likes: 1 });
-        if(checkLike.likes.includes(req.user.username)){
+        const dislikeUser = await Post.findById(req.params.id);
+        if (checkLike.likes.includes(req.user.username)) {
             res.status(400).json({ error: 'You already liked this post' });
         }
-        else{
+        else {
             await Post.updateOne({ _id: req.params.id },
                 {
                     $push: { dislikes: req.user.username }
                 }, { useFindAndModify: false });
-            await User.updateOne({ username: req.user.username },
+            await User.updateOne({ username: dislikeUser.username },
                 { $inc: { rating: -1 } }, { useFindAndModify: false });
             res.status(200).json({ message: 'Disliked Post' });
         }
     }
-    catch(err) {
-        res.status(400).json({ error: err});
+    catch (err) {
+        res.status(400).json({ error: err });
     }
 })
 

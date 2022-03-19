@@ -56,7 +56,7 @@ const PostCard = (props) => {
             <div className="card post-card">
                 <img className="card-img-top post-img" src={data?.meme}></img>
                 <div className="card-body">
-                    <h6 className="card-title">Card title</h6>
+                    <h6 className="card-title">{data?.username}</h6>
                     <p>JavaScript creates an array by calling a specific
                         function on each element present in the parent array</p>
                     <div className="card-bm">

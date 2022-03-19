@@ -18,15 +18,15 @@ export default function Grid(props) {
         <>
             <div className='row m-1'>
                 {
-                    itemData.map((item, index) => {
+                   itemData && itemData.map((item, index) => {
                         return (
                             <div className='col-4 p-1'>
-                                {item, index}
+                              
                                 <div className='card'>
-                                    <img className='card-img-top' src={item.meme} alt='Card image cap' />
+                                    <img className='card-img-top' src={item?.meme} alt='Card image cap' />
                                     <div className='card-body d-flex justify-content-between align-items-center'>
-                                       <Link to={"/profile/"+item.username} className="text-decoration-none text-dark " > <p className='card-title '
-                                        >{item.username}</p>
+                                       <Link to={"/profile/"+item?.username} className="text-decoration-none text-dark " > <p className='card-title '
+                                        >{item?.username}</p>
                                         </Link>
                                         <img 
                                             src={FullScreen} 

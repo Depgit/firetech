@@ -1,5 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react'
-import { UserContext } from '../../App';
+import { UserContext,PostContext } from '../../App';
 import { useNavigate } from 'react-router-dom';
 import './createpost.css';
 
@@ -10,6 +10,7 @@ export default function Createpost() {
     const [title, settitle] = useState('');
     const [description, setdescription] = useState('');
     const { state, dispatch } = useContext(UserContext);
+    const { post , dispatchPost} = useContext(PostContext);
     const history = useNavigate('')
 
     const ConverBase64 = (file) => {
@@ -30,7 +31,7 @@ export default function Createpost() {
 
     useEffect(() => {
         if (url) {
-            console.log("url >> ", url);
+            // console.log("url >> ", url);
             fetch('/api/posts/createpost', {
                 method: "post",
                 headers: {
@@ -39,19 +40,21 @@ export default function Createpost() {
                 },
                 body: JSON.stringify({
                     title,
-                    url,
+                    url
                 })
             }).then(res => res.json())
                 .then(data => {
-                    if (data.error) {
-                        console.log(data.error);
-                        alert(data.error);
-                    } else {
+                    if(data.error){
                         console.log(data);
+                    }
+                    else{
+                        dispatchPost({ type: "POSTS", payload: data.post })
+                        console.log("post in create post >> ",post);
                         alert('created Successfully');
-                        // dispatch({ type: "POSTS", payload: data.post })
+                        window.location.reload();
                         history('/');
                     }
+                
                 }).catch(err => {
                     console.log(err);
                 })
