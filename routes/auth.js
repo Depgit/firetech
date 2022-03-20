@@ -98,4 +98,17 @@ router.get("/Topranker", async(req, res) => {
     res.json({topRanker, topContributers});
 })
 
+/**
+ * @route POST api/auth/search-users
+ */
+router.post('/search-users',(req,res)=>{
+    let userPattern = new RegExp("^"+req.body.query)
+    User.find({username:{$regex:userPattern}})
+    .then(user=>{
+        res.json({user})
+    }).catch(err=>{
+        console.log(err)
+    })
+})
+
 module.exports = router;

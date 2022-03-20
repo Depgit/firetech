@@ -33,11 +33,8 @@ export default function Signup() {
                     history('/signup');
                 }else{
                     alert('Signup Successfully');
-                    localStorage.setItem('jwt', data.token);
-                    localStorage.setItem("user",data.user);
-                    dispatch({type:"USER", payload:data.user});
+                    history('/login');
                     console.log({data});
-                    history('/');
                 }
             }).catch(err=>{
                 console.log(err);

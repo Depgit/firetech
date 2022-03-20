@@ -12,16 +12,11 @@ export default function Grid(props) {
         props.data && setItemData([...props.data]);
     }, [props.data])
 
-    const isBottom = (e) => {
-        const bottom = e.target.scrollHeight - e.target.scrollTop === e.target.clientHeight;
-        if (bottom) {
-            console.log("bottom")
-        }
-    }
+
 
     return (
         <>
-            <div className='row m-1' onScroll={() => isBottom()}>
+            <div className='row m-1' >
                 {
                     itemData && itemData.map((item, index) => {
                         return (
@@ -46,6 +41,9 @@ export default function Grid(props) {
                         )
                     })
                 }
+                <div>
+                     
+                </div>
             </div>
         </>
     )

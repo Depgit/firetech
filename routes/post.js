@@ -46,7 +46,7 @@ router.get('/allposts', async (req, res) => {
     try {
         let _limit = req.headers.limit;
         let _offset = req.headers.skip;
-        const posts = await Post.find().sort({ date: -1 }).limit(_limit).skip(_offset);
+        const posts = await Post.find().sort({ date: -1 });
         res.status(201).json({ posts: posts, created: true });
     } catch (err) {
         res.status(400).json({ error: err });
