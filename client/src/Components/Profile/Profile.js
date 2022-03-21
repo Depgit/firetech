@@ -67,7 +67,7 @@ export default function Profile() {
     
     return (
         <div>
-            <div className="row" style={{ marginTop: "60px" }}>
+            <div className="row" style={{ marginTop: "100px" }}>
                 <div className="col-2"></div>
                 <div className='col-4'>
                     <h1>{profile?.username}</h1>

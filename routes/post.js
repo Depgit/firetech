@@ -12,7 +12,7 @@ const { cloudinary } = require('../middleware/cloudinary')
 router.post('/createpost', varifyToken, async (req, res) => {
 
     try {
-        // console.log("uplaod image >>> ",req.body.url);
+        
         const memeUrl = req.body.url;
         const uploadResponse = await cloudinary.uploader.upload(memeUrl, {
             upload_preset: 'drpzet'
@@ -29,8 +29,9 @@ router.post('/createpost', varifyToken, async (req, res) => {
             meme: urlImage,
         });
         
-        console.log("post >>> ",post);
         await post.save();
+        await User.updateOne({ username: req.user.username },
+            { $inc: { contributions : 1 } }, { useFindAndModify: false });
         res.status(201).json({ post: post, created: true });
     } catch (err) {
         res.status(400).json({ error: err, created: false });
@@ -130,7 +131,6 @@ router.put('/comment/like/:id', varifyToken, async (req, res) => {
     try {
         const checkdisLike = await Comment.findOne({ _id: req.params.id, dislikes: { $in: [req.user.username] } });
         const likeUser = await Comment.findOne({ _id: req.params.id});
-        console.log("like chek >> ",likeUser);
         if (checkdisLike) {
             return res.status(400).json({ error: 'You already dislike this comment' });
         } else {
@@ -232,6 +232,8 @@ router.put("/profilepicupdate/:id" , varifyToken , async (req,res) => {
             upload_preset: 'drpzet'
         })
         let urlImage = uploadResponse.url;
+        let tmp = urlImage.split("upload");
+        urlImage = tmp[0] + "upload/w_300,h_200,c_scale"+tmp[1];
 
         await User.updateOne({username: req.user.username},{ avatar : urlImage },{ useFindAndModify: false });
         res.status(200).json( {message: "Updated successfully"})

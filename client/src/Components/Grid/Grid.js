@@ -26,7 +26,7 @@ export default function Grid(props) {
                                     <img className='card-img-top' src={item?.meme} alt='Card image cap' />
                                     <div className='card-body d-flex justify-content-between align-items-center'>
                                         <Link to={"/profile/" + item?.username} className="text-decoration-none text-dark " > <p className='card-title '
-                                        >{item?.username}</p>
+                                        >{item?.username} </p>
                                         </Link>
                                         <img
                                             src={FullScreen}

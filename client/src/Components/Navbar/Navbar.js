@@ -33,8 +33,8 @@ export default function Navbar(props) {
                 <div className="row fixed-top ">
                     {/* <div className="col-2" ></div> */}
                     <div className='col-12 r-flex nav-bg'>
-                        <div className='in-flex nulify width-auto m-1'>
-                        <Link to="/rankers"> <h5 className=''>Firetech</h5> </Link>
+                        <div className='in-flex nulify width-auto mb-1'>
+                        <Link to="/rankers" className='text-decoration-none h5 text-dark '><h2>Firetech</h2> </Link>
                             <div className='mx-1'>
                                 {/* <input className="form-control" type="search" placeholder="Search" aria-label="Search" /> */}
                                 <div >
@@ -45,13 +45,11 @@ export default function Navbar(props) {
                                         onChange={(e) => fetchUsers(e.target.value)}
                                         className="form-control"
                                     />
-                                    {/* <ul className="" > */}
-                                        {search && userDetails.map(item => {
-                                            return <Link to={"/profile/" + item?.username} onClick={() => {
-                                                setSearch('')
-                                            }}><div className="" style={{zIndex:100}}>{item?.username}</div></Link>
-                                        })}
-                                    {/* </ul> */}
+                                    {search && userDetails.map(item => {
+                                        return <Link to={"/profile/" + item?.username} onClick={() => {
+                                            setSearch('')
+                                        }} className="text-decoration-none h6 text-dark" style={{zIndex:100}}><p>{item?.username}</p></Link>
+                                    })}
                                 </div>
                             </div>
                         </div>

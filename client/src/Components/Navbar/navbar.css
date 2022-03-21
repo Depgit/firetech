@@ -1,4 +1,6 @@
-
+.text-decoration-none{
+    text-decoration: none;
+}
 .nav-bg {
     background-color: azure;
 }

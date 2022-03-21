@@ -61,24 +61,12 @@ router.post('/logout', varifyToken, async (req, res) => {
     }
 });
 
-router.post('/profile/edit', varifyToken, async (req, res) => {
-    const { avatar, password } = req.body;
-    try {
-        if (password == "") password = req.user.password;
-        await User.updateOne({ _id: req.user._id }, { avatar, password }, { useFindAndModify: false });
-        res.status(200).json({message: 'Avatar updated'});
-    } catch {
-        res.status(400).json({message: 'Error updating avatar'});
-    }
-});
-
 /**
  * @route GET api/auth/profile/:username
  */
 router.get('/profile/:username', async (req, res) => {
     try {
         const user = await User.findOne({ username: req.params.username });
-        console.log("user ",user);
         res.status(200).json({user});
     } catch (err) {
         res.status(400).json({error: err});

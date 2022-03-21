@@ -1,11 +1,12 @@
 import React, { useContext, useEffect } from 'react'
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { UserContext } from '../../App';
 import PostCard from '../PostCard/PostCard';
 import Like from "../images/like.svg";
 import Dislike from "../images/dislike.svg";
 import GreenLike from "../images/Greenlike.svg";
 import RedDislike from "../images/redDislike.svg";
+import './comment.css'
 
 
 export default function Comment(props) {
@@ -120,8 +121,8 @@ export default function Comment(props) {
                 <PostCard postData = {postData} comment={"hello"} />
             </div>
             <div className="row my-4">
-                <h3 className='w-75 m-auto'>Comment</h3>
-                <input type="text" className="form-control w-75 m-auto" placeholder="Comment"
+                <h3 className='width-75 m-auto'>Comment</h3>
+                <input type="text" className="form-control width-75 m-auto" placeholder="Comment"
                     value={comment}
                     onChange={(e) => setcomment(e.target.value)}
                     onKeyDown={handleSubmit}
@@ -130,16 +131,17 @@ export default function Comment(props) {
             {
                 data.map((item,index) => {
                     return (
-                        <div className="row w-75 m-auto">
-                            <div className="col-12">
-                                <div className="card">
-                                    <div className="card-body d-flex justify-content-between align-items-center">
+                        <div className=" width-75 m-auto">
+                            <div className="">
+                                <div className="card ">
+                                    <div className="card-body py-1 d-flex justify-content-between align-items-center">
                                         <div>
-                                            <h5 className="card-title">{item.username}</h5>
+                                        <Link to={"/profile/" + item?.username} className="text-decoration-none text-dark " > <p className='card-title '
+                                        >{item?.username} </p>
+                                        </Link>
                                             <p className="card-text">{item.comment}</p>
                                         </div>
                                         <div>
-                                            {console.log("tem idex check", item,index)}
                                             { item && item.likes?.includes(state?.username) ? 
                                             <img className="like-img h-50" src={GreenLike}></img> :
                                             <img className="like-img h-50" onClick={(e)=>{

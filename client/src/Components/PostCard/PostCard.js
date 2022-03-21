@@ -9,6 +9,8 @@ import "./postcard.css";
 import { UserContext } from "../../App";
 import { Link } from "react-router-dom";
 
+
+
 const PostCard = (props) => {
     const [data, setData] = React.useState(null);
     const { state, dispatch } = useContext(UserContext);
@@ -16,6 +18,22 @@ const PostCard = (props) => {
     useEffect(() => {
         setData({ ...props.postData });
     }, [props.postData]);
+
+    const todayTime = (time) =>{
+        let date = new Date(time);
+        let today = new Date();
+        let timeDiff = Math.abs(today.getTime() - date.getTime());
+        let diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        let diffHour = Math.ceil(timeDiff/ (1000 * 3600));
+        let diffMinute = Math.ceil(timeDiff / (1000* 60));
+        if(diffMinute<60){
+            return `${diffMinute} minute ago`;
+        }else if(diffHour < 24){
+            return `${diffHour} hour ago`;
+        }else{
+            return `${diffDays} days ago`;
+        }
+    }
 
     const onlike = (e) => {
         fetch('/api/posts/post/like/' + props.postData?._id, {
@@ -80,6 +98,7 @@ const PostCard = (props) => {
                             </button></div>
                         }
                     </div>
+                    <span>{todayTime(data?.date)}</span>
                 </div>
             </div>
         </>
