@@ -34,7 +34,7 @@ export default function Navbar(props) {
                     {/* <div className="col-2" ></div> */}
                     <div className='col-12 r-flex nav-bg'>
                         <div className='in-flex nulify width-auto m-1'>
-                            <h5 className=''>Firetech</h5>
+                        <Link to="/rankers"> <h5 className=''>Firetech</h5> </Link>
                             <div className='mx-1'>
                                 {/* <input className="form-control" type="search" placeholder="Search" aria-label="Search" /> */}
                                 <div >
