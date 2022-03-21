@@ -90,7 +90,7 @@ router.get("/Topranker", async(req, res) => {
  * @route POST api/auth/search-users
  */
 router.post('/search-users',(req,res)=>{
-    let userPattern = new RegExp("^"+req.body.query)
+    let userPattern = new RegExp(req.body.query)
     User.find({username:{$regex:userPattern}})
     .then(user=>{
         res.json({user})

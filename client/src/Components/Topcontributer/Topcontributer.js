@@ -30,12 +30,12 @@ const Topcontributer = () => {
                 </tr>
             </thead>
             {
-                topContributers.map(topContributer => {
+                topContributers.map((topContributer,index) => {
                     return (
                         <tbody>
                             <tr>
-                                <th scope="row">1</th>
-                                <td>{topContributer.username}</td>
+                                <th scope="row">{index}</th>
+                                <td><Link to={`/profile/${topContributer.username}`} className="text-decoration-none text-dark"> {topContributer.username}</Link></td> 
                                 <td>{topContributer.contributions}</td>
                             </tr>
                         </tbody>

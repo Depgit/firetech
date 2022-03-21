@@ -1,4 +1,5 @@
 import React, { useState, useEffect, useReducer, useContext } from 'react';
+import { Link } from 'react-router-dom';
 import { UserContext } from '../../App';
 
 const Toprater = () => {
@@ -30,12 +31,12 @@ const Toprater = () => {
                     </tr>
                 </thead>
                 {
-                    toprankers.map(topranker => {
+                    toprankers.map((topranker,index) => {
                         return (
                             <tbody>
                                 <tr>
-                                    <th scope="row">1</th>
-                                    <td>{topranker.username}</td>
+                                    <th scope="row">{index}</th>
+                                    <td><Link to={`/profile/${topranker.username}`} className="text-decoration-none text-dark"> {topranker.username} </Link></td>
                                     <td>{topranker.rating}</td>
                                 </tr>
                             </tbody>
