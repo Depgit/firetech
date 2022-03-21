@@ -41,7 +41,7 @@ export default function Signup() {
             })
     }
     return (
-        <div className="container">
+        <div className="container " style={{marginTop:"100px"}}>
             <div className="row">
                 <div className="col-md-4 offset-md-4">
                     <h1 className="text-center">Signup</h1>
