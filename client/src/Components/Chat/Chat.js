@@ -2,7 +2,7 @@ import React, { useEffect, useState, useRef } from "react";
 import io from 'socket.io-client';
 import './chat.css'
 
-const socket = io('http://localhost:8080');
+const socket = io();
 
 
 export default function Chat(props) {
