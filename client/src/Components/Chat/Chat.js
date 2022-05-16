@@ -1,26 +1,27 @@
-import React, { useEffect, useState, useRef } from "react";
-import io from 'socket.io-client';
+import React, { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+// import io from 'socket.io-client';
 import './chat.css'
 
-const socket = io();
+// const socket = io();
 
 
 export default function Chat(props) {
     const [data, setData] = useState('');
     const [newmessage, setNewMessage] = useState([]);
 
-    useEffect(()=>{
-        fetch('/api/message/global',{
+    useEffect(() => {
+        fetch('/api/message/global', {
             method: 'get',
             headers: {
                 'x-access-token': localStorage.getItem('jwt')
             }
-        }).then(res=>res.json())
-        .then(data=>{
-            console.log(data);
-            setNewMessage(data.messages);
-        })
-    },[])
+        }).then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setNewMessage(data.messages);
+            })
+    }, [])
 
     console.log(newmessage);
 
@@ -36,38 +37,38 @@ export default function Chat(props) {
             })
         }).then(res => res.json())
             .then(data => {
-                console.warn('DATA  sent successfully');
+                setNewMessage([...newmessage, data.message]);
             })
-        socket.on('message', (data) => {
-            console.log("socket data", data);
-            setNewMessage([...newmessage,data]);
-        })
         setData('');
     }
 
     return (
         <>
-            <div className="chatting" style={{ marginTop: "100px", scrollBehavior: 'smooth' }} >
-                <div className="container">
-                    {
-                        newmessage && newmessage.map((item, index) => {
-                            return (
-                                <div key={index} className="card mb-3">
-                                    <div className="card-body">
-                                        <p className="card-text"><b>{item.from}</b></p>
-                                        <p className="card-text">{item.body}</p>
+            <div style={{ marginTop: '100px' }}>
+                <div className="w-75 m-auto" style={{ scrollBehavior: 'smooth' }} >
+                    <div className="">
+                        {
+                            newmessage && newmessage.map((item, index) => {
+                                return (
+                                    <div key={index} className="mb-3">
+                                        <div className="form-control w-100">
+                                            <Link to={"/profile/" + item?.from}>
+                                                <p className="card-text"><b>{item.from}</b></p>
+                                            </Link>
+                                            <p className="card-text">{item.body}</p>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                    }
-                </div>
-                <div className='row d-flex footer' >
-                    <div className="col-10 ">
-                        <input type="text" className='form-control' value={data || ''} onChange={(e) => setData(e.target.value)} />
+                                )
+                            })
+                        }
                     </div>
-                    <div className='col-2'>
-                        <button className='form-control bg-secondary opacity-10 ' onClick={message}><b>Send</b></button>
+                    <div className='row d-flex footer' >
+                        <div className="col-10 ">
+                            <input type="text" className='form-control' value={data || ''} onChange={(e) => setData(e.target.value)} />
+                        </div>
+                        <div className='col-2'>
+                            <button className='form-control bg-secondary opacity-10 ' onClick={message}><b>Send</b></button>
+                        </div>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const MONGO_URI = process.env.MONGO_URI;
 const cors = require('cors');
-const {Server} = require('socket.io');
+// const {Server} = require('socket.io');
 
 const PORT = process.env.PORT || 8080;
 
@@ -51,23 +51,9 @@ if(process.env.NODE_ENV=="production"){
         res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
-const server = app.listen(PORT, () => { 
-    console.log(`Server listening on ${PORT}`);
-});
-
-// setup socket.io
-const io = new Server(server,
-    {
-        cors:{
-            origin:'*',
-            methods:['GET','POST','PUT','DELETE','OPTIONS'],
-        }
-    }  
-);
-app.use((req,res,next)=> {
-    req.io = io;
-    next();
-})
+// const server = app.listen(PORT, () => { 
+//     console.log(`Server listening on ${PORT}`);
+// });
 
 
 // routes middelware
@@ -76,3 +62,24 @@ app.use('/api/auth', auth);
 app.use('/api/posts', posts);
 app.use('/api/contest', contest);
 app.use('/api/message', message);
+
+
+app.listen(PORT, () => { 
+    console.log(`Server listening on ${PORT}`);
+});
+
+// setup socket.io
+// const io = new Server(server,
+//     {
+//         cors:{
+//             origin:'*',
+//             methods:['GET','POST','PUT','DELETE','OPTIONS'],
+//         }
+//     }  
+// );
+// app.use((req,res,next)=> {
+//     req.io = io;
+//     next();
+// })
+
+

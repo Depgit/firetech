@@ -10,10 +10,10 @@ router.post('/global',varifyToken,(req,res)=>{
         from: req.user.username,
         body: req.body.body,
     });
-    req.io.sockets.emit('message',{
-        from: req.user.username,
-        body: req.body.body,
-    });
+    // req.io.sockets.emit('message',{
+    //     from: req.user.username,
+    //     body: req.body.body,
+    // });
     newMessage.save().then(message => {
         res.status(201).json({ message: message, created: true });
     }).catch(err => {
