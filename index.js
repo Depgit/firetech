@@ -7,6 +7,7 @@ const morgan = require('morgan');
 const mongoose = require('mongoose');
 const MONGO_URI = process.env.MONGO_URI;
 const cors = require('cors');
+const {Server} = require('socket.io');
 
 const PORT = process.env.PORT || 8080;
 
@@ -15,6 +16,7 @@ const users = require('./routes/users');
 const auth = require('./routes/auth');
 const posts = require('./routes/post');
 const contest = require('./routes/contest');
+const message = require('./routes/message');
 
 mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
     console.log('Connected to MongoDB');
@@ -41,11 +43,6 @@ app.use(
 app.use(morgan('common'));
 app.use(cors());
 
-// routes middelware
-app.use('/api/users', users);
-app.use('/api/auth', auth);
-app.use('/api/posts', posts);
-app.use('/api/contest', contest);
 
 if(process.env.NODE_ENV=="production"){
     app.use(express.static('client/build'))
@@ -54,6 +51,28 @@ if(process.env.NODE_ENV=="production"){
         res.sendFile(path.resolve(__dirname,'client','build','index.html'))
     })
 }
-app.listen(PORT, () => { 
+const server = app.listen(PORT, () => { 
     console.log(`Server listening on ${PORT}`);
 });
+
+// setup socket.io
+const io = new Server(server,
+    {
+        cors:{
+            origin:'*',
+            methods:['GET','POST','PUT','DELETE','OPTIONS'],
+        }
+    }  
+);
+app.use((req,res,next)=> {
+    req.io = io;
+    next();
+})
+
+
+// routes middelware
+app.use('/api/users', users);
+app.use('/api/auth', auth);
+app.use('/api/posts', posts);
+app.use('/api/contest', contest);
+app.use('/api/message', message);

@@ -30,6 +30,9 @@
 .h-100 {
     height: 136%!important;
 }
+.me-4{
+    margin-left: 0rem !important;
+}
 @media screen and (max-width: 768px) {
     .r-flex{
         flex-direction: column;

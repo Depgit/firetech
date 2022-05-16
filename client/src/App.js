@@ -10,12 +10,10 @@ import Navbar from './Components/Navbar/Navbar'
 import Home from './Components/Home/Home';
 import Profile from './Components/Profile/Profile';
 import Contest from './Components/Contest/Contest';
-import Contributer from './Components/Topcontributer/Topcontributer'
-import Grid from './Components/Grid/Grid';
-import PostCard from './Components/PostCard/PostCard';
 import ShowToper from './Components/Topcontributer/ShowToper';
 import Createpost from './Components/Createpost/Createpost';
 import Comment from './Components/Comment/Comment';
+import Chat from './Components/Chat/Chat';
 
 export const UserContext = createContext();
 export const PostContext = createContext();
@@ -41,6 +39,7 @@ const Routing = () => {
       <Route exact path="/rankers" element={<ShowToper />} />
       <Route exact path="/createpost" element={<Createpost />} />
       <Route exact path="/comment/:id" element={<Comment />} />
+      <Route exact path='/chat' element={<Chat />} />
       <Route path="/" element={<Home />} />
     </Routes>
   )
