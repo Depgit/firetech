@@ -18,42 +18,30 @@ const posts = require('./routes/post');
 const contest = require('./routes/contest');
 const message = require('./routes/message');
 
-mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, ()=>{
+mongoose.connect(process.env.MONGO_URI, { useNewUrlParser: true, useUnifiedTopology: true }, () => {
     console.log('Connected to MongoDB');
 });
 
 //middleware
-app.use(express.json({limit : '50mb'}));
-app.use(express.urlencoded({limit: '50mb', extended: true}));
+app.use(express.json({ limit: '50mb' }));
+app.use(express.urlencoded({ limit: '50mb', extended: true }));
 app.use(
     helmet.contentSecurityPolicy({
         directives: {
-            "default-src":[ "'self'" ],
-            "base-uri":[ "'self'" ],
-            "font-src":[ "'self'", "https:", "data:" ],
-            "frame-ancestors":[ "'self'" ],
-            "img-src":[ "'self'", "data:", "http://res.cloudinary.com"],
-            "script-src":[ "'self'" ],
-            "script-src-attr":[ "'none'" ],
-            "style-src":[ "'self'", "https:", "'unsafe-inline'" ],
+            "default-src": ["'self'"],
+            "base-uri": ["'self'"],
+            "font-src": ["'self'", "https:", "data:"],
+            "frame-ancestors": ["'self'"],
+            "img-src": ["'self'", "data:", "http://res.cloudinary.com"],
+            "script-src": ["'self'"],
+            "script-src-attr": ["'none'"],
+            "style-src": ["'self'", "https:", "'unsafe-inline'"],
         }
     })
 )
 
 app.use(morgan('common'));
 app.use(cors());
-
-
-if(process.env.NODE_ENV=="production"){
-    app.use(express.static('client/build'))
-    const path = require('path')
-    app.get("*",(req,res)=>{
-        res.sendFile(path.resolve(__dirname,'client','build','index.html'))
-    })
-}
-// const server = app.listen(PORT, () => { 
-//     console.log(`Server listening on ${PORT}`);
-// });
 
 
 // routes middelware
@@ -63,8 +51,20 @@ app.use('/api/posts', posts);
 app.use('/api/contest', contest);
 app.use('/api/message', message);
 
+if (process.env.NODE_ENV == "production") {
+    app.use(express.static('client/build'))
+    // const path = require('path')
+    // app.get("*", (req, res) => {
+    //     res.sendFile(path.resolve(__dirname, 'client', 'build', 'index.html'))
+    // })
+}
+// const server = app.listen(PORT, () => { 
+//     console.log(`Server listening on ${PORT}`);
+// });
 
-app.listen(PORT, () => { 
+
+
+app.listen(PORT, () => {
     console.log(`Server listening on ${PORT}`);
 });
 
@@ -75,7 +75,7 @@ app.listen(PORT, () => {
 //             origin:'*',
 //             methods:['GET','POST','PUT','DELETE','OPTIONS'],
 //         }
-//     }  
+//     }
 // );
 // app.use((req,res,next)=> {
 //     req.io = io;

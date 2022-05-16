@@ -20,7 +20,7 @@ export default function Home() {
     const url = window.location.href;
     
 
-    console.log("home page running .... ", post);
+    // console.log("home page running .... ", post);
     useEffect(() => {
         
         if (post.length === 0) {
@@ -33,7 +33,7 @@ export default function Home() {
                 }
             }).then(res => res.json())
                 .then(data => {
-                    console.log(data);
+                    console.log("home page running .... ", data);
                     data.posts.map(allPost => {
                         dispatchPost({ type: "POSTS", payload: allPost })
                     })
