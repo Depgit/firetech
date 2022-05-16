@@ -33,7 +33,6 @@ export default function NevLeft(props) {
                     <Link to="/rankers"> <a href='#' className="text-decoration-none me-2 text-dark"  ><>Rankers</></a> </Link>
                     <Link to="/createpost"><a href='#' className="text-decoration-none me-2 text-dark"  ><>CreatePost</></a></Link>
                     <Link to="/chat"> <a href='#' className="text-decoration-none text-dark me-2"  ><>chat</></a></Link>
-                    
                 </div>
             </div>
         </div>
