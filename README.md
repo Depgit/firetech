@@ -29,8 +29,12 @@ run `npm install` <br>
 create a `.env` file on root directory<br>
 inside `.env` file insert <br>
 <pre>
-MONGO_URI: "mongodb uri connection or localhost connection"
-JWT_TOKEN: "anything i.e. "sjdsn" "
+CLOUDINARY_API_KEY = ""
+CLOUDINARY_API_SECRET = ""
+CLOUDINARY_NAME = ""
+JWT_TOKEN = drpzet
+MONGO_URI = ""
+
 </pre>
 now run `node index` <br>
 open <a href="https://www.postman.com/"> postman </a> <br>
